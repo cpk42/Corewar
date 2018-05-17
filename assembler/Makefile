@@ -6,14 +6,11 @@
 #    By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/17 00:07:29 by ltanenba         ###   ########.fr        #
+#    Updated: 2018/05/17 00:15:22 by ltanenba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= asm
-
-INCLUDES	= libft_leo/includes/libft.h \
-			  includes/asm.h
 
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra
@@ -38,6 +35,11 @@ LIB_LEO		= libft_leo/libft.a
 
 LIBS		= $(LIB_LEO)
 
+# Add header files here: (use full relative path to Makefile)
+INCLUDES	= libft_leo/includes/libft.h \
+			  includes/asm.h
+
+# Add source files here: (files assumed to be in ./src folder)
 FILES		= main.c
 
 SRC			= $(addprefix src/, $(FILES))
