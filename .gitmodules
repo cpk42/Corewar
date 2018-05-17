@@ -1,0 +1,6 @@
+[submodule "corewar/libft_leo"]
+	path = corewar/libft_leo
+	url = https://github.com/LeoTD/libft.git
+[submodule "assembler/libft_leo"]
+	path = assembler/libft_leo
+	url = https://github.com/LeoTD/libft.git
