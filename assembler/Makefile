@@ -6,7 +6,7 @@
 #    By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/17 00:15:22 by ltanenba         ###   ########.fr        #
+#    Updated: 2018/05/17 00:23:25 by ltanenba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		= asm
 
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra
-INC_FLAGS	= -I libft/includes -I includes
+INC_FLAGS	= -I libft_leo/includes -I includes
 
 # -g for lldb
 DEBUG		= #-g
@@ -61,7 +61,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C libft fclean
+	@make -C libft_leo fclean
 
 obj:
 	@printf "Creating obj/ directory...\n"
