@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/17 05:29:29 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/18 08:31:17 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,29 @@
 # include "libft.h"
 # include "arena.h"
 
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+
+# include <stdio.h> //printf
+
 /*
-** Global declaration of arena & associated (void *).
-** Do not reference g_ARENA_MEMORY[]. This is just the declaration.
-** Make copies of the pointer to access the memory.
+** WIP struct for players.
 */
 
-char				g_ARENA_MEMORY[MEM_SIZE];
-void				*g_arena;
+typedef struct		s_player
+{
+	header_t			h;
+	char				id;
+	int					start_idx;
+	char				code[CHAMP_MAX_SIZE];
+}					t_player;
+
+/*
+** Player functions.
+*/
+
+t_player			*new_player(char *file_name);
 
 /*
 ** WIP struct for proccesses.
@@ -32,19 +47,16 @@ void				*g_arena;
 
 typedef struct		s_proc
 {
-	char		*name;
-	char		*comment;
-	int			proc_id;
-	void		*pc;
-	t_proc		*next;
+	int					proc_id;
+	int					pc;
+	struct s_proc		*next;
 //	t_proc		*prev;
 }					t_proc;
 
 /*
-** Function declarations.
 ** t_proc functions:
 */
 
-t_proc				*new_proc(char *name, char *comment, int mem_idx);
+t_proc				*new_proc(int mem_idx);
 
 #endif
