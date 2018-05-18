@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   endian_test.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/16 23:46:46 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/17 02:21:35 by ltanenba         ###   ########.fr       */
+/*   Created: 2018/05/17 05:50:59 by ltanenba          #+#    #+#             */
+/*   Updated: 2018/05/17 05:52:59 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
-
-static void			usage(void)
+#include <stdio.h>
+int		main(void) 
 {
-	ft_putendl("Ya dun goofed.");
-}
+	unsigned int 	i = 1;
+	char			*c = (char*)&i;
 
-int			main(int argc, char **argv)
-{
-	ft_putendl("Hello Corewar!");
-	if (argc > 2 && argc < 6)
-	{
-		initialize_arena(argc - 1, argv + 1);
-	}
+	if (*c)    
+		printf("Little endian");
 	else
-		usage();
-
-	argc = 0;
-	argv = 0;
-	return (0);
+		printf("Big endian");
+	getchar();
+	return 0;
 }

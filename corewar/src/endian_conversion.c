@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   endian_conversion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/16 23:46:46 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/17 02:21:35 by ltanenba         ###   ########.fr       */
+/*   Created: 2018/05/17 06:00:45 by ltanenba          #+#    #+#             */
+/*   Updated: 2018/05/17 06:11:23 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void			usage(void)
+void			swap_endianness(char *mem, int size)
 {
-	ft_putendl("Ya dun goofed.");
-}
+	int			i;
 
-int			main(int argc, char **argv)
-{
-	ft_putendl("Hello Corewar!");
-	if (argc > 2 && argc < 6)
+	i = -i;
+	while (++i < size / 2)
 	{
-		initialize_arena(argc - 1, argv + 1);
+		mem[i]				= mem[i] ^ mem[size - 1 - i];
+		mem[size - 1 - i]	= mem[i] ^ mem[size - 1 - i];
+		mem[i]				= mem[i] ^ mem[size - 1 - i];
 	}
-	else
-		usage();
-
-	argc = 0;
-	argv = 0;
-	return (0);
 }

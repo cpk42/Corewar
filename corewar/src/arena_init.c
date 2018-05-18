@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   arena_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/16 23:46:46 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/17 02:21:35 by ltanenba         ###   ########.fr       */
+/*   Created: 2018/05/17 00:59:22 by ltanenba          #+#    #+#             */
+/*   Updated: 2018/05/17 06:48:00 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void			usage(void)
-{
-	ft_putendl("Ya dun goofed.");
-}
+/*
+** This function takes (argc - 1, argv + 1)
+*/
 
-int			main(int argc, char **argv)
+void				initialize_arena(int ac, char **av)
 {
-	ft_putendl("Hello Corewar!");
-	if (argc > 2 && argc < 6)
+	int				i;
+	t_proc			*p;
+	header_t		*header;
+	char			buf[MEM_SIZE];
+
+	ft_bzero(buf, MEM_SIZE);
+	i = -1;
+	while (++i < ac)
 	{
-		initialize_arena(argc - 1, argv + 1);
+		scrape_player_header(
 	}
-	else
-		usage();
-
-	argc = 0;
-	argv = 0;
-	return (0);
 }
