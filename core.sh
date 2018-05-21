@@ -12,9 +12,8 @@ while test $# -gt 0; do
 	else
 		base=`basename -s .cor $1`
 		base=`basename -s .s $base`
-		if [ ! -f $base.cor ]; then
-			~/asm $base.s
-		fi
+		rm -f $base.cor
+		~/asm $base.s
 		if [ ! -f $base.cor ]; then
 			exit 1
 		else
