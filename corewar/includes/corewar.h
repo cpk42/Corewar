@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/22 16:49:06 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/22 16:53:38 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 # include "op.h"
 # include "libft.h"
+# include <stdlib.h>
+# include <string.h>
 
 # define MAX_OPCODE 16
 

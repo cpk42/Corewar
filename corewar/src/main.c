@@ -6,13 +6,10 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:46:46 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/22 16:50:34 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/22 16:53:23 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "corewar.h"
 
 void		do_st(byte *ar, t_proc *ps, int idx);
