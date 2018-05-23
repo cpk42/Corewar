@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 14:54:35 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/23 15:27:31 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct		s_player
 	char				id;
 	int					start_idx;
 	char				code[CHAMP_MAX_SIZE];
+	int					cycle_lived;
 }					t_player;
 
 /*
@@ -49,6 +50,8 @@ typedef struct		s_proc
 {
 	int					proc_id;
 	int					pc;
+	int					lcount;
+	long				regs[REG_NUMBER];
 	struct s_proc		*next;
 	struct s_proc		*prev;
 }					t_proc;
