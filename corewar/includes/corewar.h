@@ -6,25 +6,24 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/21 23:42:34 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/22 16:53:38 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#define DEBUG // XXX
+#ifdef DEBUG
+# include <stdio.h>
+#endif
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
 # include "op.h"
 # include "libft.h"
+# include <stdlib.h>
+# include <string.h>
 
 # define MAX_OPCODE 16
-
-/*
-** The coding byte consists of two-bit pairs, one for each argument, which
-** indicate how the argument at that index is to be read.
-** E.g. 10110000 == [DIR_CODE, IND_CODE] if DIR_CODE is 2 and IND_CODE is 3.
-** Immediately follows opcode. Not present on live, zjmp, fork, or lfork.
-*/
-# define ARG_CODE(coding_byte, arg_idx) ((coding_byte >> ((3 - arg_idx) * 2) & 3))
 
 /*
 ** Always `MEMSAFE' memory accesses to make sure we don't exceed our boundaries.
@@ -45,7 +44,7 @@ typedef struct			s_op
 {
 	char	*name;
 	int		argc;
-	int		legal_argcodes[4];
+	int		legal_argtypes[4];
 	int		opcode;
 	int		cycle_cost;
 	char	*mnemonic;
@@ -59,7 +58,7 @@ typedef struct			s_proc
 	int		regs[REG_NUMBER];
 }						t_proc;
 
-extern t_op				op_tab[17];
+extern t_op				g_op_tab[17];
 
 
 byte		*read_from_arena(byte *ar, int start_idx, size_t size, int pc);
@@ -69,10 +68,7 @@ void		reg_reg_write(t_proc *ps, int dst_reg, int src_reg);
 void		reg_mem_write(t_proc *ps, int dst_idx, int src_reg, byte *ar);
 void		print_bytes(void *p, int size);
 unsigned long	bigendian_num(byte *buf, size_t size);
-
-#endif
-
-#ifndef DEBUG
-# define DEBUG
+t_arg_type	*extract_argtypes(byte coding_byte);
+int			has_legal_argtypes(byte coding_byte, t_op *op);
 
 #endif
