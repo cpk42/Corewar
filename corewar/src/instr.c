@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 11:53:16 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/22 16:50:34 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/22 18:06:07 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_arg_type	*extract_argtypes(byte coding_byte)
 	while (i >= 0)
 	{
 		code = coding_byte & mask;
+//		printf("code = %d\ncoding byte = %u\n", code, coding_byte);
 		if (code == 0)
 			argtypes[i] = 0;
 		else if (code == REG_CODE)
@@ -65,6 +66,7 @@ int			has_legal_argtypes(byte coding_byte, t_op *op)
 	i = 0;
 	while (i < op->argc)
 	{
+//		printf("argtype[i] = %d\n", argtypes[i]);
 		if (!(argtypes[i] & op->legal_argtypes[i]))
 			return (0);
 		++i;

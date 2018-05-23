@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 22:20:11 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/21 23:12:26 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/22 20:35:19 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void		write_backwards(byte *ar, int idx, size_t size, int pc, void *bytes)
 */
 void		reg_reg_write(t_proc *ps, int dst_reg, int src_reg)
 {
-	memcpy(&(ps->regs[dst_reg]), &(ps->regs[src_reg]), REG_SIZE);
+	ft_memcpy(&(ps->regs[dst_reg - 1]), &(ps->regs[src_reg - 1]), REG_SIZE);
 }
 
 /*
@@ -78,4 +78,9 @@ void		reg_reg_write(t_proc *ps, int dst_reg, int src_reg)
 void		reg_mem_write(t_proc *ps, int dst_idx, int src_reg, byte *ar)
 {
 	write_backwards(ar, dst_idx, REG_SIZE, ps->pc, &(ps->regs[src_reg]));
+}
+
+void		dir_reg_write(t_proc *ps, int dst_reg, int value)
+{
+		ft_memcpy(&(ps->regs[dst_reg - 1]), &value, DIR_SIZE);
 }
