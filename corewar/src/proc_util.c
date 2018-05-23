@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 04:16:44 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/18 06:53:28 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/23 14:54:02 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ t_proc			*new_proc(int mem_idx)
 	tmp->proc_id = proc_id++;
 	tmp->pc = mem_idx;
 	tmp->next = 0;
-//	tmp->prev = 0;
+	tmp->prev = 0;
 	return (tmp);
 }

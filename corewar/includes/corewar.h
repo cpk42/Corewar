@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/18 08:31:17 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/23 14:54:35 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct		s_proc
 	int					proc_id;
 	int					pc;
 	struct s_proc		*next;
-//	t_proc		*prev;
+	struct s_proc		*prev;
 }					t_proc;
 
 /*
@@ -58,5 +58,7 @@ typedef struct		s_proc
 */
 
 t_proc				*new_proc(int mem_idx);
+void				del_proc(t_proc **p);
+void				add_proc(t_proc **head, t_proc *n);
 
 #endif

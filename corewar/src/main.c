@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:46:46 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/18 10:45:15 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/18 20:57:19 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void			usage(void)
 int			main(int argc, char **argv)
 {
 	ft_putendl("Hello Corewar!");
-	if (argc >= 2 && argc <= MAX_PLAYERS)
+	if (argc >= 2 && argc <= MAX_PLAYERS + 1)
 	{
 		initialize_arena(argc - 1, argv + 1);
 	}
