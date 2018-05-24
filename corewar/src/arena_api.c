@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   joshs_arena.c                                      :+:      :+:    :+:   */
+/*   arena_api.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/24 14:27:43 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/24 14:33:12 by jgelbard         ###   ########.fr       */
+/*   Created: 2018/05/24 15:49:46 by jgelbard          #+#    #+#             */
+/*   Updated: 2018/05/24 15:49:48 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 
 void		store_register_contents(t_proc *ps, int reg_idx, int req_idx)
 {
-	t_op *op;
+	int		n;
 
+	t_op *op;
+	n = ps->regs[reg_idx];
 	op = PROCESS_CURRENT_OP(ps);
 	if (OP_USES_IDX_MOD(op))
-		_store_register_contents(ps, reg_idx, req_idx);
+		vm_write(ps->pc, req_idx, &n, 4);
 	else
-		_lstore_register_contents(ps, reg_idx, req_idx);
+		vm_lwrite(ps->pc + req_idx, &n, 4);
 }
 
 int			follow_indirect_reference(t_proc *ps, int idx_of_indirect)
@@ -30,9 +32,7 @@ int			follow_indirect_reference(t_proc *ps, int idx_of_indirect)
 	int		res;
 	short	ind;
 
-	char *bytes = vm_rawread(ps->pc, ps->pc + idx_of_indirect, 2);
 	ind = get_short(ps, idx_of_indirect);
-	bytes = vm_rawread(ps->pc, ps->pc + ind, 4);
 	res = get_int(ps, ind);
 	return (res);
 }
@@ -45,9 +45,9 @@ int			get_int(t_proc *ps, int req_idx)
 
 	op = PROCESS_CURRENT_OP(ps);
 	if (OP_USES_IDX_MOD(op))
-		bytes = _process_read(ps, req_idx, 4);
+		bytes = vm_rawread(ps->pc, req_idx, 4);
 	else
-		bytes = _process_lread(ps, req_idx, 4);
+		bytes = vm_lrawread(ps->pc + req_idx, 4);
 	res = bigendian_num(bytes, 4);
 	return ((int)res);
 }
@@ -60,9 +60,10 @@ int			get_short(t_proc *ps, int req_idx)
 
 	op = PROCESS_CURRENT_OP(ps);
 	if (OP_USES_IDX_MOD(op))
-		bytes = _process_read(ps, req_idx, 2);
+		bytes = vm_rawread(ps->pc, req_idx, 2);
 	else
-		bytes = _process_lread(ps, req_idx, 2);
+		bytes = vm_lrawread(ps->pc + req_idx, 2);
+
 	res = bigendian_num(bytes, 2);
 	return ((int)res);
 }
@@ -75,9 +76,31 @@ int			get_byte(t_proc *ps, int req_idx)
 
 	op = PROCESS_CURRENT_OP(ps);
 	if (OP_USES_IDX_MOD(op))
-		bytes = _process_read(ps, req_idx, 1);
+		bytes = vm_rawread(ps->pc, req_idx, 1);
 	else
-		bytes = _process_lread(ps, req_idx, 1);
+		bytes = vm_lrawread(ps->pc + req_idx, 1);
 	res = bigendian_num(bytes, 1);
 	return ((int)res);
+}
+
+/*
+** For getting an actual number out of a string of bytes. We can't just read
+** the memory and cast to (int) or (short) because the endianness will be wrong.
+*/
+
+unsigned long	bigendian_num(char *buf, size_t size)
+{
+	unsigned long res;
+	unsigned long x;
+
+	res = 0;
+	while (size > 0)
+	{
+		x = (unsigned long)(*buf);
+		x = x << ((size - 1) * 8);
+		res |= x;
+		--size;
+		++buf;
+	}
+	return (res);
 }
