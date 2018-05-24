@@ -6,22 +6,28 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 04:26:24 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/19 06:40:43 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/23 20:17:02 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ARENA_H
 # define ARENA_H
 
-void				initialize_arena(int ac, char **av);
+void				initialize_arena(char **p_names);
 void				init_error(char *msg);
 
 /*
 ** Defines and fucntions for reading and writing to/from arena.
 */
 
-void				write_to_arena(int index, void *src, unsigned int size);
-void				read_from_arena(int index, void *dst, unsigned int size);
+# define READ_SIZE 20
+
+char				*vm_rawread(int pc, int index, size_t size);
+char				*vm_lrawread(int index, size_t size);
+void				vm_write(int pc, int index, void *src, size_t size);
+void				vm_lwrite(int index, void *src, size_t size);
+void				vm_read(int pc, int index, void *dst, size_t size);
+void				vm_lread(int index, void *dst, size_t size);
 
 /*
 ** Internal utility functions.

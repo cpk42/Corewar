@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 15:27:31 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/23 20:22:05 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdlib.h>
 
 # include <stdio.h> //printf
+
+# define ft_abs(x) ((x) < 0 ? -(x) : (x))
 
 /*
 ** WIP struct for players.
@@ -40,7 +42,8 @@ typedef struct		s_player
 ** Player functions.
 */
 
-t_player			*new_player(char *file_name);
+void				new_player(char *file_name, t_player *p);
+void				del_player(t_player **p);
 
 /*
 ** WIP struct for proccesses.
@@ -51,6 +54,7 @@ typedef struct		s_proc
 	int					proc_id;
 	int					pc;
 	int					lcount;
+	int					tminus;
 	long				regs[REG_NUMBER];
 	struct s_proc		*next;
 	struct s_proc		*prev;
@@ -60,8 +64,25 @@ typedef struct		s_proc
 ** t_proc functions:
 */
 
-t_proc				*new_proc(int mem_idx);
+t_proc				*new_proc(int mem_idx, t_proc *parent);
 void				del_proc(t_proc **p);
-void				add_proc(t_proc **head, t_proc *n);
+void				add_proc(int mem_idx, t_proc *parent);
+
+/*
+** Global declaration for g_vm.
+*/
+
+typedef struct		s_vm
+{
+	int					player_num;
+	t_player			p[MAX_PLAYERS];
+	int					proc_num;
+	t_proc				*proc_head;
+	int					cycle;
+}					t_vm;
+
+t_vm				g_vm;
+
+void				initialize_vm(int player_num);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/18 08:10:15 by ltanenba         ###   ########.fr        #
+#    Updated: 2018/05/23 20:20:21 by ltanenba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ FILES		= main.c \
 			  arena_util.c \
 			  player_creation.c \
 			  proc_util.c \
-			  endian_conversion.c
+			  endian_conversion.c \
+			  vm_init.c
 
 SRC			= $(addprefix src/, $(FILES))
 OBJ			= $(addprefix obj/, $(FILES:.c=.o))

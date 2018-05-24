@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 00:59:22 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/18 21:09:17 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/23 20:45:56 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,37 @@ void				init_error(char *msg)
 	exit(EXIT_SUCCESS);
 }
 
-void				init_vars(void)
-{
-	g_arena = &g_ARENA_MEMORY[0];
-}
-
 /*
 ** This function takes (argc - 1, argv + 1)
 */
 
-void				initialize_arena(int ac, char **av)
+void				initialize_arena(char **p_names)
 {
 	int				i;
 	unsigned int	k;
-	t_player		*p;
 
-	init_vars();
 	i = -1;
-	while (++i < ac)
+	while (++i < g_vm.player_num)
 	{
-		p = new_player(av[i]);
-		printf("Magic:\t\t\t[ %x ]\nPlayer %d:\t\t[ %s ]\nProg_size:\t\t[ %u ]\nComment:\t\t[ %s ]\n\n", p->h.magic, (int)p->id, p->h.prog_name, p->h.prog_size, p->h.comment);
+		new_player(p_names[i], &g_vm.p[i]);
+		g_vm.p[i].start_idx = (MEM_SIZE / g_vm.player_num) * i;
+		ft_memcpy((void *)(g_arena + g_vm.p[i].start_idx),
+				(void *)g_vm.p[i].code, g_vm.p[i].h.prog_size);
+		printf("Magic:\t\t\t[ %x ]\nPlayer %d:\t\t[ %s ]\nProg_size:\t\t[ %u ]\nComment:\t\t[ %s ]\n\n", g_vm.p[i].h.magic, (int)g_vm.p[i].id, g_vm.p[i].h.prog_name, g_vm.p[i].h.prog_size, g_vm.p[i].h.comment);
 		k = -1;
-		while (++k < p->h.prog_size)
+		while (++k < g_vm.p[i].h.prog_size)
 		{
-			printf("%2.2hhx ", p->code[k]);
+			printf("%2.2hhx ", g_vm.p[i].code[k]);
 			if ((k % 16) == 15 && k)
 				printf("\n");
 		}
 		printf("\n\n");
+	}
+	k = -1;
+	while (++k < MEM_SIZE)
+	{
+		printf("%2.2hhx ", g_arena[k]);
+		if ((k % 64) == 63 && k)
+			printf("\n");
 	}
 }

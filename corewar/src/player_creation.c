@@ -6,11 +6,17 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 07:01:40 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/18 10:19:37 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/23 20:30:32 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void			del_player(t_player **p)
+{
+	free(*p);
+	*p = 0;
+}
 
 static void		st_get_str(int fd, char *tmp, int len)
 {
@@ -28,21 +34,19 @@ static void		st_get_int(int fd, unsigned int *tmp)
 	int			read_num;
 
 	if ((read_num = read(fd, buf, 4)) != 4)
-		init_error("Invalid champion file.");
+		init_error("Invalid champion file. int");
 	endian_swap(buf, 4);
 	*tmp = *(unsigned int *)buf;
 }
 
-t_player		*new_player(char *file_name)
+void			new_player(char *file_name, t_player *tmp)
 {
-	t_player	*tmp;
 	int			fd;
-	static int	id = 1;
+	static int	id = 0;
 
-	if (!(tmp = (t_player *)ft_memalloc(sizeof(t_player))))
-		return (0);
+	ft_putendl(file_name);
 	if((fd = open(file_name, O_RDONLY)) < 0)
-		return (0);
+		return ;
 	st_get_int(fd, &tmp->h.magic);
 	st_get_str(fd, (char *)tmp->h.prog_name, PROG_NAME_LENGTH + 4);
 	st_get_int(fd, &tmp->h.prog_size);
@@ -51,5 +55,4 @@ t_player		*new_player(char *file_name)
 	st_get_str(fd, (char *)tmp->code, tmp->h.prog_size);
 	tmp->id = id++;
 	tmp->start_idx = 0;
-	return (tmp);
 }

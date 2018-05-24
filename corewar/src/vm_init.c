@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   vm_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/16 23:46:46 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 20:31:43 by ltanenba         ###   ########.fr       */
+/*   Created: 2018/05/23 20:07:16 by ltanenba          #+#    #+#             */
+/*   Updated: 2018/05/23 20:11:05 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void			usage(void)
+void		initialize_vm(int player_num)
 {
-	ft_putendl("Ya dun goofed.");
-}
-
-int			main(int argc, char **argv)
-{
-	ft_putendl("Hello Corewar!");
-	if (argc - 1 >= 1 && argc - 1 <= MAX_PLAYERS)
-	{
-		initialize_vm(argc - 1);
-		initialize_arena(argv + 1);
-	}
-	else
-		usage();
-	return (0);
+	g_vm.player_num = player_num;
+	g_vm.proc_num = 0;
+	g_vm.cycle = 0;
+	g_vm.proc_head = 0;
+	g_arena = &g_ARENA_MEMORY[0];
 }
