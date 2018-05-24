@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 11:53:16 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/23 21:56:19 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 22:33:55 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,16 @@ int			instr_size(int opcode, t_arg_type *argtypes)
 	int			i;
 
 	size = 0;
-	op = g_op_tab[opcode];
+	op = g_op_tab[opcode - 1];
 	i = 0;
 	while (i < op.argc)
 	{
 		if (argtypes[i] == T_REG)
 			size += 1;
 		else if (argtypes[i] == T_IND)
-			size += 2;
+			size += IND_SIZE;
 		else if (argtypes[i] == T_DIR)
-			size += 3;
+			size += DIR_SIZE;
 		++i;
 	}
 	return (size);
