@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mmoros <mmoros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/23 22:17:13 by jgelbard         ###   ########.fr        #
+#    Updated: 2018/05/24 11:41:54 by mmoros           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,6 @@ FILES		= main.c \
 			  vm_init.c \
 			  ops/st_op.c \
 			  util.c \
-			  arena.c \
 			  op.c \
 			  instr.c \
 			  ops/sti_op.c
