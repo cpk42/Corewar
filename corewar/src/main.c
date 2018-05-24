@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:46:46 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 23:00:16 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 23:24:07 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,29 @@ void		read_instr(char *ar, t_proc *ps)
 	if((opcode = ar[0]) < 1 || opcode > MAX_OPCODE)
 		return ;
 	if (opcode == OP_ST)
-		do_st(ar, ps);
+		do_st(ps);
 	else if (opcode == OP_STI)
 	{
-		do_sti(ar, ps);
+		do_sti(ps);
 	}
 }
 
 void	test_st(void)
 {
 	char	*mem = calloc(900, 1);
+	mem = g_arena;
 	t_proc	*ps = malloc(sizeof(*ps));
 
 	ps->pc = 0;
 	ft_bzero(ps->regs, sizeof(ps->regs));
-	ps->regs[2] = 0xAABBCCDD;
+	ps->regs[2] = 0x66666666;
 
 	mem[0] = 0x03; // OP_ST
 	mem[1] = 0x70; // argcodes: 10110000 == T_REG, T_IND
 	mem[2] = 0x02; // reg == r2
 	mem[3] = 0x00; // ind offset = 0 ...
 	mem[4] = 0x0a; // ... + 10
-	// so: write the value 0xAABBCCDD at idx offset 10
+	// so: write the value 0x66666666 at idx offset 10
 	// ie, 11 bytes in front of this position
 	puts("test_st\nBEFORE:");
 	print_bytes(mem, 20);
@@ -52,6 +53,7 @@ void	test_st(void)
 void	test_sti(void)
 {
 	char	*mem = calloc(900, 1);
+	mem = g_arena;
 	t_proc	*ps = malloc(sizeof(*ps));
 
 	ps->pc = 0;

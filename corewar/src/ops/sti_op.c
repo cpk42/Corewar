@@ -6,20 +6,20 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 18:39:25 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/23 22:52:56 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 23:24:31 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		do_sti(char *ar, t_proc *ps)
+int		do_sti(t_proc *ps)
 {
 	char			*bytes;
 	t_arg_type		*argtypes;
 	int				next_arg_start_idx;
 	unsigned long	dst_address;
 
-	bytes = read_from_arena(ar, 16, ps->pc);
+	bytes = vm_rawread(ps->pc, ps->pc, 16);
 	argtypes = extract_argtypes(bytes[1]);
 	if (!has_legal_argtypes(bytes[0], argtypes))
 		return (2);
@@ -51,6 +51,6 @@ int		do_sti(char *ar, t_proc *ps)
 		assert(argtypes[2] == T_DIR);
 		dst_address += bigendian_num(bytes + next_arg_start_idx, TRUNCATED_DIR_SIZE);
 	}
-	reg_mem_write(ar, ps, bytes[2], dst_address);
+	vm_write(ps->pc, ps->pc + dst_address, ps->regs + bytes[2], REG_SIZE);
 	return (instr_size(bytes[0], argtypes));
 }
