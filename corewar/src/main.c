@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:46:46 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 20:31:43 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/23 21:14:29 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int			main(int argc, char **argv)
 	{
 		initialize_vm(argc - 1);
 		initialize_arena(argv + 1);
+		ft_putendl("\n");
 	}
 	else
 		usage();
