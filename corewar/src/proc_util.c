@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 04:16:44 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 22:44:08 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/24 12:51:55 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static void		st_cpyregs(t_proc *p, t_proc *c)
 {
 	int				i;
 
-	i = -1;
-	while (++i < REG_NUMBER + 1)
+	i = 0;
+	while (++i < REG_NUMBER)
 	{
 		if (!p)
 			c->regs[i] = 0;

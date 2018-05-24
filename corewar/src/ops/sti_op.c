@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 18:39:25 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/23 23:24:31 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/24 14:08:42 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,44 @@
 
 int		do_sti(t_proc *ps)
 {
-	char			*bytes;
 	t_arg_type		*argtypes;
 	int				next_arg_start_idx;
 	unsigned long	dst_address;
+	t_op			*op;
 
-	bytes = vm_rawread(ps->pc, ps->pc, 16);
-	argtypes = extract_argtypes(bytes[1]);
-	if (!has_legal_argtypes(bytes[0], argtypes))
+	argtypes = extract_argtypes(get_byte(ps, 1));
+	op = PROCESS_CURRENT_OP(ps);
+	if (!has_legal_argtypes(op, argtypes))
 		return (2);
 	dst_address = 0;
 	assert(argtypes[0] == T_REG);
 	next_arg_start_idx = 3;
 	if (argtypes[1] == T_REG)
 	{
-		dst_address += ps->regs[(int)(bytes[3])];
+		dst_address += ps->regs[get_byte(ps, 3) - 1];
 		next_arg_start_idx += 1;
 	}
 	else if (argtypes[1] == T_IND)
 	{
-		dst_address += bigendian_num(bytes + 3, IND_SIZE);
+
+		dst_address += follow_indirect_reference(ps, 3);
 		next_arg_start_idx += IND_SIZE;
 	}
 	else
 	{
 		assert(argtypes[1] == T_DIR);
-		dst_address += bigendian_num(bytes + next_arg_start_idx, TRUNCATED_DIR_SIZE);
+		dst_address += get_short(ps, next_arg_start_idx);
 		next_arg_start_idx += TRUNCATED_DIR_SIZE;
 	}
 	if (argtypes[2] == T_REG)
 	{
-		dst_address += ps->regs[(int)(bytes[next_arg_start_idx])];
+		dst_address += ps->regs[get_byte(ps, next_arg_start_idx) - 1];
 	}
 	else
 	{
 		assert(argtypes[2] == T_DIR);
-		dst_address += bigendian_num(bytes + next_arg_start_idx, TRUNCATED_DIR_SIZE);
+		dst_address += get_short(ps, next_arg_start_idx);
 	}
-	vm_write(ps->pc, ps->pc + dst_address, ps->regs + bytes[2], REG_SIZE);
-	return (instr_size(bytes[0], argtypes));
+	store_register_contents(ps, get_byte(ps, 2) - 1, dst_address);
+	return (instr_size(op, argtypes));
 }

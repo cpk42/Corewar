@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 04:26:24 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 22:49:39 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/24 14:42:32 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@ void				init_error(char *msg);
 */
 
 # define READ_SIZE 20
-/* JOSH */
-char		*read_from_arena(char *ar, size_t size, int pc);
-char		*lread_from_arena(char *ar, size_t size, int pc);
-
-void		reg_mem_write(char *ar, t_proc *ps, int reg_idx, int dst_idx);
-void		lreg_mem_write(char *ar, t_proc *ps, int reg_idx, int dst_idx);
-unsigned long	bigendian_num(char *buf, size_t size);
-/* ENDJOSH */
 
 char				*vm_rawread(int pc, int index, size_t size);
 char				*vm_lrawread(int index, size_t size);
@@ -53,5 +45,20 @@ void				endian_swap(char *mem, int size);
 
 char				g_ARENA_MEMORY[MEM_SIZE];
 char				*g_arena;
+
+/* JOSH */
+/* 'public api' */
+void			store_register_contents(t_proc *ps, int reg_num, int req_idx);
+unsigned long	bigendian_num(char *buf, size_t size);
+int				get_int(t_proc *ps, int req_idx);
+int				get_short(t_proc *ps, int req_idx);
+int				get_byte(t_proc *ps, int req_idx);
+int				follow_indirect_reference(t_proc *ps, int index_of_indirect);
+/* internals */
+void		_store_register_contents(t_proc *ps, int reg_idx, int req_idx);
+void		_lstore_register_contents(t_proc *ps, int reg_idx, int req_idx);
+char		*_process_read(t_proc *ps, int req_idx, size_t size);
+char		*_process_lread(t_proc *ps, int req_idx, size_t size);
+/* ENDJOSH */
 
 #endif

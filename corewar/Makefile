@@ -6,7 +6,7 @@
 #    By: mmoros <mmoros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/24 11:41:54 by mmoros           ###   ########.fr        #
+#    Updated: 2018/05/24 14:56:28 by jgelbard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,12 @@ FILES		= main.c \
 			  endian_conversion.c \
 			  vm_init.c \
 			  ops/st_op.c \
-			  util.c \
 			  op.c \
 			  instr.c \
+			  tests.c \
+			  joshs_arena.c \
+			  joshs_arena_internals.c \
+			  dev_util.c \
 			  ops/sti_op.c
 
 SRC			= $(addprefix src/, $(FILES))
@@ -62,7 +65,7 @@ OBJ			= $(addprefix obj/, $(FILES:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(LIB_LEO) $(SRC)
+$(NAME): $(LIB_LEO) $(SRC) $(INCLUDES)
 	@printf "%b" "$(LIB_COLOR)Compiling: $(OK_COLOR)$@\n$(NO_COLOR)"
 	@$(CC) $(DEBUG) $(CFLAGS) $(INC_FLAGS) -o $(NAME) $(SRC) $(LIBS)
 

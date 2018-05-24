@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 23:21:09 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/24 14:41:55 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 
 # include "op.h"
 
-typedef unsigned char	byte;
-
 typedef struct		s_proc
 {
 	int					carry;
@@ -30,7 +28,7 @@ typedef struct		s_proc
 	int					pc;
 	int					lcount;
 	int					tminus;
-	long				regs[REG_NUMBER + 1];
+	long				regs[REG_NUMBER];
 	struct s_proc		*next;
 	struct s_proc		*prev;
 }					t_proc;
@@ -43,12 +41,29 @@ typedef struct		s_proc
 # include <unistd.h>
 
 # define MAX_OPCODE 16
+# define PROCESS_CURRENT_OP(ps) (g_op_tab + ((int)(g_arena[ps->pc]) - 1))
 # define TRUNCATED_DIR_SIZE IND_SIZE
 # define ft_abs(x) ((x) < 0 ? -(x) : (x))
 
-# define OP_ST 0x03
-# define OP_STI 0x0B
-
+enum	e_opcodes
+{
+	LIVE = 1,
+	LD, 
+	ST, 
+	ADD,
+	SUB,
+	AND,
+	OR, 
+	XOR,
+	ZJMP,
+	LDI,
+	STI,
+	FORK,
+	LLD,
+	LLDI,
+	LFORK,
+	AFF
+};
 
 typedef struct			s_op
 {
@@ -64,11 +79,15 @@ typedef struct			s_op
 
 extern t_op				g_op_tab[17];
 
+int			get_byte(t_proc *ps, int req_idx);
+int			get_short(t_proc *ps, int req_idx);
+int			get_int(t_proc *ps, int req_idx);
 void		print_bytes(void *p, int size);
 void		print_argtypes(t_arg_type *argtypes);
+void		print_registers(t_proc *ps);
 t_arg_type	*extract_argtypes(char coding_byte);
-int			has_legal_argtypes(int opcode, t_arg_type *argtypes);
-int			instr_size(int opcode, t_arg_type *argtypes);
+int			has_legal_argtypes(t_op *op, t_arg_type *argtypes);
+int			instr_size(t_op *op, t_arg_type *argtypes);
 
 /* ops */
 int			do_st(t_proc *ps);
