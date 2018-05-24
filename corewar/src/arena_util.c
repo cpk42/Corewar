@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 06:56:55 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 23:10:42 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/24 15:41:42 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char		*vm_lrawread(int index, size_t size)
 	ft_bzero((void *)buf, READ_SIZE);
 	size = size < READ_SIZE ? size : READ_SIZE;
 	if (index + size < MEM_SIZE)
-		ft_memcpy(buf, (g_arena +index), size);
+		ft_memcpy(buf, (g_arena + index), size);
 	else
 		while (++i < (int)size)
 			buf[i] = g_arena[(index + i) % MEM_SIZE];
@@ -82,13 +82,29 @@ void		vm_lwrite(int index, void *src, size_t size)
 
 void		vm_read(int pc, int index, void *dst, size_t size)
 {
-	index = pc + (ft_abs(index - pc) % IDX_MOD);
-	ft_memcpy(dst, (g_arena + index), size);
+	int			i;
+	int			s;
+
+	i = -1;
+	s = pc < index ? 1 : -1;
+	index = pc + (s * (ft_abs(index - pc) % IDX_MOD));
+	if (index + size < MEM_SIZE)
+		ft_memcpy(dst, (g_arena + index), size);
+	else
+		while (++i < (int)size)
+			*((char *)dst + i) = g_arena[(index + i) % MEM_SIZE];
 	endian_swap((char *)dst, size);
 }
 
 void		vm_lread(int index, void *dst, size_t size)
 {
-	ft_memcpy(dst, (g_arena + index), size);
+	int			i;
+
+	i = -1;
+	if (index + size < MEM_SIZE)
+		ft_memcpy(dst, (g_arena + index), size);
+	else
+		while (++i < (int)size)
+			*((char *)dst + i) = g_arena[(index + i) % MEM_SIZE];
 	endian_swap((char *)dst, size);
 }
