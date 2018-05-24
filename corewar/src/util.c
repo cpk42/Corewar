@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 22:39:21 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/23 21:59:56 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 22:58:16 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** the memory and cast to (int) or (short) because the endianness will be wrong.
 */
 
-unsigned long	bigendian_num(byte *buf, size_t size)
+unsigned long	bigendian_num(char *buf, size_t size)
 {
 	unsigned long res;
 	unsigned long x;
@@ -52,10 +52,10 @@ void		print_argtypes(t_arg_type *argtypes)
 
 void		print_bytes(void *p, int size)
 {
-	byte	*b;
+	char	*b;
 	int		i;
 
-	b = (byte *)p;
+	b = (char *)p;
 	printf("%02X", *b);
 	--size;
 	++b;
@@ -66,7 +66,7 @@ void		print_bytes(void *p, int size)
 			printf(" ");
 		else
 			printf(":");
-		printf("%02X", *b);
+		printf("%02hhX", *b);
 		++b;
 		--size;
 		++i;

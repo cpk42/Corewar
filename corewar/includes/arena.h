@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 04:26:24 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 22:40:59 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 22:49:39 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void				init_error(char *msg);
 
 # define READ_SIZE 20
 /* JOSH */
-byte		*read_from_arena(byte *ar, size_t size, int pc);
-byte		*lread_from_arena(byte *ar, size_t size, int pc);
+char		*read_from_arena(char *ar, size_t size, int pc);
+char		*lread_from_arena(char *ar, size_t size, int pc);
 
-void		reg_mem_write(byte *ar, t_proc *ps, int reg_idx, int dst_idx);
-void		lreg_mem_write(byte *ar, t_proc *ps, int reg_idx, int dst_idx);
-unsigned long	bigendian_num(byte *buf, size_t size);
+void		reg_mem_write(char *ar, t_proc *ps, int reg_idx, int dst_idx);
+void		lreg_mem_write(char *ar, t_proc *ps, int reg_idx, int dst_idx);
+unsigned long	bigendian_num(char *buf, size_t size);
 /* ENDJOSH */
 
 char				*vm_rawread(int pc, int index, size_t size);

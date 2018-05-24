@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 11:53:16 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/23 22:33:55 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 22:48:57 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 ** This ignores T_LAB, but I don't know what that is yet. Change later.
 */
 
-t_arg_type	*extract_argtypes(byte coding_byte)
+t_arg_type	*extract_argtypes(char coding_byte)
 {
 	static t_arg_type	argtypes[MAX_ARGS_NUMBER];
 	int					mask;

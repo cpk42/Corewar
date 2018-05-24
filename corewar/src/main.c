@@ -6,15 +6,15 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:46:46 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 22:38:07 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 23:00:16 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		read_instr(byte *ar, t_proc *ps)
+void		read_instr(char *ar, t_proc *ps)
 {
-	byte		opcode;
+	char		opcode;
 
 	if((opcode = ar[0]) < 1 || opcode > MAX_OPCODE)
 		return ;
@@ -28,7 +28,7 @@ void		read_instr(byte *ar, t_proc *ps)
 
 void	test_st(void)
 {
-	byte	*mem = calloc(900, 1);
+	char	*mem = calloc(900, 1);
 	t_proc	*ps = malloc(sizeof(*ps));
 
 	ps->pc = 0;
@@ -51,7 +51,7 @@ void	test_st(void)
 
 void	test_sti(void)
 {
-	byte	*mem = calloc(900, 1);
+	char	*mem = calloc(900, 1);
 	t_proc	*ps = malloc(sizeof(*ps));
 
 	ps->pc = 0;

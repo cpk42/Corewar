@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 22:41:57 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 22:50:00 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ extern t_op				g_op_tab[17];
 
 void		print_bytes(void *p, int size);
 void		print_argtypes(t_arg_type *argtypes);
-t_arg_type	*extract_argtypes(byte coding_byte);
+t_arg_type	*extract_argtypes(char coding_byte);
 int			has_legal_argtypes(int opcode, t_arg_type *argtypes);
 int			instr_size(int opcode, t_arg_type *argtypes);
 
 /* ops */
-int			do_st(byte *ar, t_proc *ps);
-int			do_sti(byte *ar, t_proc *ps);
+int			do_st(char *ar, t_proc *ps);
+int			do_sti(char *ar, t_proc *ps);
 
 /*
 ** WIP struct for players.

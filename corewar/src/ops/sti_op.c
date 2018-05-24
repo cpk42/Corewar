@@ -6,15 +6,15 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 18:39:25 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/23 21:56:01 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 22:52:56 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		do_sti(byte *ar, t_proc *ps)
+int		do_sti(char *ar, t_proc *ps)
 {
-	byte			*bytes;
+	char			*bytes;
 	t_arg_type		*argtypes;
 	int				next_arg_start_idx;
 	unsigned long	dst_address;
@@ -28,7 +28,7 @@ int		do_sti(byte *ar, t_proc *ps)
 	next_arg_start_idx = 3;
 	if (argtypes[1] == T_REG)
 	{
-		dst_address += ps->regs[bytes[3]];
+		dst_address += ps->regs[(int)(bytes[3])];
 		next_arg_start_idx += 1;
 	}
 	else if (argtypes[1] == T_IND)
@@ -44,7 +44,7 @@ int		do_sti(byte *ar, t_proc *ps)
 	}
 	if (argtypes[2] == T_REG)
 	{
-		dst_address += ps->regs[bytes[next_arg_start_idx]];
+		dst_address += ps->regs[(int)(bytes[next_arg_start_idx])];
 	}
 	else
 	{

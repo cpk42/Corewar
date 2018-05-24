@@ -6,15 +6,15 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 17:42:44 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/23 20:13:27 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 23:01:00 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		do_st(byte *ar, t_proc *ps)
+int		do_st(char *ar, t_proc *ps)
 {
-	byte			*bytes;
+	char			*bytes;
 	t_arg_type		*argtypes;
 	unsigned long	ind_offset;
 
@@ -24,7 +24,7 @@ int		do_st(byte *ar, t_proc *ps)
 		return (2);
 	if (argtypes[1] == T_REG)
 	{
-		ps->regs[bytes[3]] = ps->regs[bytes[2]];
+		ps->regs[(int)(bytes[3])] = ps->regs[(int)(bytes[2])];
 	}
 	else // already checked for errors, right?
 	{
