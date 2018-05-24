@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 22:20:11 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/21 23:12:26 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 19:34:02 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,54 +18,86 @@
 ** so we'll use a static buffer. No particular reason to use 16.
 */
 
-byte		*read_from_arena(byte *ar, int start_idx, size_t size, int pc)
+byte		*read_from_arena(byte *ar, size_t size, int pc)
 {
 	static byte		buf[16];
 	size_t			i;
+	size_t			real_idx;
 
 	ft_bzero(buf, sizeof(buf));
 	i = 0;
 	while (i < size)
 	{
-		buf[i] = ar[MEMSAFE(LEASH(start_idx + i, pc))];
+		real_idx = (pc + i) % IDX_MOD % MEM_SIZE;
+		buf[i] = ar[real_idx];
 		++i;
 	}
 	return ((byte *)buf);
 }
 
-void		write_to_arena(byte *ar, int start_idx, size_t size, int pc, void *bytes)
+byte		*lread_from_arena(byte *ar, size_t size, int pc)
 {
-	size_t	i;
+	static byte		buf[16];
+	size_t			i;
+	size_t			real_idx;
 
+	ft_bzero(buf, sizeof(buf));
 	i = 0;
 	while (i < size)
 	{
-		ar[MEMSAFE(LEASH(start_idx + i, pc))] = ((byte *)bytes)[i];
+		real_idx = (pc + i) % MEM_SIZE;
+		buf[i] = ar[real_idx];
 		++i;
 	}
-}
-
-void		write_backwards(byte *ar, int idx, size_t size, int pc, void *bytes)
-{
-	size_t	i;
-
-	i = 0;
-	idx += size - 1;
-	while (i < size)
-	{
-		ar[MEMSAFE(LEASH(idx, pc))] = ((byte *)bytes)[i];
-		++i;
-		--idx;
-	}
+	return ((byte *)buf);
 }
 
 /*
-** This is a convenience function to save on typing ampersands and parens.
-** Writing from register to register is just a memcpy.
+** Unlikely to be used by the main program, because the only writes done are
+** from (little-endian) registers, which should use write_from_register.
 */
-void		reg_reg_write(t_proc *ps, int dst_reg, int src_reg)
+void		raw_arena_write(byte *ar, void *src, size_t size, int req_idx)
 {
-	memcpy(&(ps->regs[dst_reg]), &(ps->regs[src_reg]), REG_SIZE);
+	size_t	i;
+	size_t	real_idx;
+
+	i = 0;
+	while (i < size)
+	{
+		real_idx = (req_idx + i) % MEM_SIZE;
+		ar[real_idx] = ((byte *)src)[i];
+		++i;
+	}
+}
+
+void		write_backwards(byte *ar, void *src, size_t size, int pc, int req_idx)
+{
+	size_t	i;
+	size_t	real_idx;
+
+	i = 0;
+	req_idx += size - 1;
+	while (i < size)
+	{
+		real_idx = (pc + ((req_idx - i) % IDX_MOD)) % MEM_SIZE;
+		ar[real_idx] = ((byte *)src)[i];
+		++i;
+	}
+}
+
+void		lwrite_backwards(byte *ar, void *src, size_t size, int pc, int req_idx)
+{
+	size_t	i;
+	size_t	real_idx;
+
+	i = 0;
+	req_idx += size - 1;
+	while (i < size)
+	{
+		real_idx = (pc + req_idx - i) % MEM_SIZE;
+		ar[real_idx] = ((byte *)src)[i];
+		++i;
+	}
 }
 
 /*
@@ -75,7 +107,12 @@ void		reg_reg_write(t_proc *ps, int dst_reg, int src_reg)
 ** that stops being true this should become a simple forwards write.
 */
 
-void		reg_mem_write(t_proc *ps, int dst_idx, int src_reg, byte *ar)
+void		reg_mem_write(byte *ar, t_proc *ps, int reg_idx, int dst_idx)
 {
-	write_backwards(ar, dst_idx, REG_SIZE, ps->pc, &(ps->regs[src_reg]));
+	write_backwards(ar, &(ps->regs[reg_idx]), REG_SIZE, ps->pc, dst_idx);
+}
+
+void		lreg_mem_write(byte *ar, t_proc *ps, int reg_idx, int dst_idx)
+{
+	lwrite_backwards(ar, &(ps->regs[reg_idx]), REG_SIZE, ps->pc, dst_idx);
 }

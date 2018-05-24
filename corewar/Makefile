@@ -6,7 +6,7 @@
 #    By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/22 16:14:35 by jgelbard         ###   ########.fr        #
+#    Updated: 2018/05/23 20:40:17 by jgelbard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ INCLUDES	= libft_leo/includes/libft.h \
 			  includes/op.h
 
 # Add source files here: (files assumed to be in ./src folder)
-FILES		= main.c util.c arena.c op.c instr.c
+FILES		= main.c util.c arena.c op.c instr.c \
+			  ops/st_op.c ops/sti_op.c
 
 SRC			= $(addprefix src/, $(FILES))
 OBJ			= $(addprefix obj/, $(FILES:.c=.o))

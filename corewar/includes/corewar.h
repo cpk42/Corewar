@@ -6,13 +6,14 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/22 16:53:38 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 21:55:23 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define DEBUG // XXX
 #ifdef DEBUG
 # include <stdio.h>
+# include <assert.h>
 #endif
 
 #ifndef COREWAR_H
@@ -24,6 +25,7 @@
 # include <string.h>
 
 # define MAX_OPCODE 16
+# define TRUNCATED_DIR_SIZE IND_SIZE
 
 /*
 ** Always `MEMSAFE' memory accesses to make sure we don't exceed our boundaries.
@@ -37,6 +39,7 @@
 # define LEASH(idx, pc) (pc + (idx % IDX_MOD))
 
 # define OP_ST 0x03
+# define OP_STI 0x0B
 
 typedef unsigned char	byte;
 
@@ -49,26 +52,33 @@ typedef struct			s_op
 	int		cycle_cost;
 	char	*mnemonic;
 	int		has_codebyte;
-	int		changes_carry;
+	int		truncate;
 }					t_op;
 
 typedef struct			s_proc
 {
 	int		pc;
-	int		regs[REG_NUMBER];
+	int		regs[REG_NUMBER + 1];
+	int		carry;
 }						t_proc;
 
 extern t_op				g_op_tab[17];
 
+byte		*read_from_arena(byte *ar, size_t size, int pc);
+byte		*lread_from_arena(byte *ar, size_t size, int pc);
 
-byte		*read_from_arena(byte *ar, int start_idx, size_t size, int pc);
-void		write_to_arena(byte *ar, int start_idx, size_t size, int pc, void *bytes);
-void		write_backwards(byte *ar, int idx, size_t size, int pc, void *bytes);
-void		reg_reg_write(t_proc *ps, int dst_reg, int src_reg);
-void		reg_mem_write(t_proc *ps, int dst_idx, int src_reg, byte *ar);
+void		reg_mem_write(byte *ar, t_proc *ps, int reg_idx, int dst_idx);
+void		lreg_mem_write(byte *ar, t_proc *ps, int reg_idx, int dst_idx);
+
 void		print_bytes(void *p, int size);
+void		print_argtypes(t_arg_type *argtypes);
 unsigned long	bigendian_num(byte *buf, size_t size);
 t_arg_type	*extract_argtypes(byte coding_byte);
-int			has_legal_argtypes(byte coding_byte, t_op *op);
+int			has_legal_argtypes(int opcode, t_arg_type *argtypes);
+int		instr_size(int opcode, t_arg_type *argtypes);
+
+/* ops */
+int			do_st(byte *ar, t_proc *ps);
+int			do_sti(byte *ar, t_proc *ps);
 
 #endif

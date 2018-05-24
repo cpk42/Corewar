@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 22:39:21 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/21 23:11:33 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/23 21:59:56 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ unsigned long	bigendian_num(byte *buf, size_t size)
 /* Does what it says on the tin. Useful for debugging. `printf' is illegal,
 ** though; hence the flag.
 */
+
+void		print_argtypes(t_arg_type *argtypes)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		int t = argtypes[i];
+		char *s = t == T_DIR ? "T_DIR" : t == T_REG ? "T_REG" : t == T_IND ? "T_IND" : t == T_LAB ? "T_LAB" : t == 0 ? "--" : "ERR?";
+		printf("%s%s", s, i == 3 ? "\n" : ", ");
+	}
+}
 
 void		print_bytes(void *p, int size)
 {
