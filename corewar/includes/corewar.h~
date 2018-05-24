@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 22:08:53 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/23 20:47:10 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,10 @@
 */
 # define LEASH(idx, pc) (pc + (idx % IDX_MOD))
 
-# define OP_XOR 0x08
-# define OP_OR 0x07
-# define OP_AND 0x06
-# define OP_SUB 0x05
-# define OP_ADD 0x04
-# define OP_ST 0x03
+
 # define OP_LD 0x02
+# define OP_ST 0x03
+# define OP_ADD 0x04
 
 typedef unsigned char	byte;
 
@@ -61,7 +58,6 @@ typedef struct			s_op
 typedef struct			s_proc
 {
 	int			pc;
-	int			carry;
 	long		regs[REG_NUMBER];
 }						t_proc;
 
