@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 04:16:44 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 21:17:45 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/23 21:28:29 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			add_proc(int mem_idx, t_proc *parent)
 
 void			del_proc(t_proc **p)
 {
+	g_vm.proc_num--;
 	if ((*p)->next)
 		(*p)->next->prev = (*p)->prev;
 	if ((*p)->prev)
@@ -76,6 +77,7 @@ t_proc			*new_proc(int mem_idx, t_proc *parent)
 	static int		proc_id = 0;
 	t_proc			*tmp;
 
+	g_vm.proc_num++;
 	if (!(tmp = (t_proc *)ft_memalloc(sizeof(t_proc))))
 		return (0);
 	tmp->proc_id = proc_id++;

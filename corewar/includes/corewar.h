@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 20:22:05 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/23 21:25:20 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct		s_vm
 	int					proc_num;
 	t_proc				*proc_head;
 	int					cycle;
+	int					dminus;
 }					t_vm;
 
 t_vm				g_vm;
