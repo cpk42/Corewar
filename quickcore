@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Suggested: alias core="~/<path-to-your-project>/quickcore"
+# Afterwards, "core -n foo bar baz " can replace
+# "./asm foo.s; ./asm bar.s; ./asm baz.s; ./corewar -n foo.cor bar.cor baz.cor"
+# (You'll have to be in the same directory as the files to invoke it.)
+# To use this, make ~/corewar and ~/asm symlinks to the actual binaries.
+
+dotcors=()
+opts=()
+while test $# -gt 0; do
+	if [[ $1 == -d || $1 == -s || $1 == -v ]]; then
+		opts+=("$1")
+		shift
+		opts+=("$1")
+		shift
+	elif [[ $1 == -* ]]; then
+		opts+=("$1")
+		shift
+	else
+		base=`basename -s .cor $1`
+		base=`basename -s .s $base`
+		rm -f $base.cor
+		~/asm $base.s
+		if [ ! -f $base.cor ]; then
+			exit 1
+		else
+			dotcors+=("$base".cor)
+		fi
+		shift
+	fi
+done
+~/corewar "${opts[@]}" "${dotcors[@]}"

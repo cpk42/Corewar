@@ -6,7 +6,7 @@
 #    By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/17 00:43:32 by ltanenba         ###   ########.fr        #
+#    Updated: 2018/05/23 22:17:13 by jgelbard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,23 @@ LIBS		= $(LIB_LEO)
 # Add header files here: (use full relative path to Makefile)
 INCLUDES	= libft_leo/includes/libft.h \
 			  includes/corewar.h \
-			  includes/op.h
+			  includes/op.h \
+			  includes/arena.h
 
 # Add source files here: (files assumed to be in ./src folder)
-FILES		= main.c
+FILES		= main.c \
+			  arena_init.c \
+			  arena_util.c \
+			  player_creation.c \
+			  proc_util.c \
+			  endian_conversion.c \
+			  vm_init.c \
+			  ops/st_op.c \
+			  util.c \
+			  arena.c \
+			  op.c \
+			  instr.c \
+			  ops/sti_op.c
 
 SRC			= $(addprefix src/, $(FILES))
 OBJ			= $(addprefix obj/, $(FILES:.c=.o))
