@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/24 14:41:55 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/24 16:05:24 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct		s_player
 	int					start_idx;
 	char				code[CHAMP_MAX_SIZE];
 	int					cycle_lived;
+	int					lcount;
 }					t_player;
 
 /*
@@ -142,5 +143,7 @@ typedef struct		s_vm
 t_vm				g_vm;
 
 void				initialize_vm(int player_num);
+void				print_arena(void);
+void				print_player(int player_num);
 
 #endif
