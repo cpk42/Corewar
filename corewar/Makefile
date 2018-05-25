@@ -6,7 +6,7 @@
 #    By: mmoros <mmoros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/24 16:04:40 by ltanenba         ###   ########.fr        #
+#    Updated: 2018/05/24 17:02:25 by ltanenba         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,17 +49,20 @@ FILES		= main.c \
 			  proc_util.c \
 			  endian_conversion.c \
 			  vm_init.c \
-			  ops/st_op.c \
 			  op.c \
 			  instr.c \
 			  tests.c \
 			  arena_api.c \
 			  dev_util.c \
-			  ops/sti_op.c \
 			  print_util.c
 
-SRC			= $(addprefix src/, $(FILES))
-OBJ			= $(addprefix obj/, $(FILES:.c=.o))
+OPS_FILES	= st_op.c \
+			  sti_op.c \
+			  live_op.c \
+			  fork_op.c
+
+SRC			= $(addprefix src/, $(FILES)) $(addprefix src/ops/, $(OPS_FILES))
+OBJ			= $(addprefix obj/, $(FILES:.c=.o)) $(addprefix obj/, $(OPS_FILES))
 
 # ---------------------------------------------------------------------------- #
 
