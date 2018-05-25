@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 22:08:24 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 22:13:31 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/24 17:04:51 by ltanenba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@ int			do_live(t_proc *p)
 	vm_read(p->pc, p->pc + 1, &p_id, DIR_SIZE);
 	p_id = ~p_id - 1;
 	g_vm.p[p_id].cycle_lived = g_vm.cycle;
+	g_vm.p[p_id].lcount++;
 	p->lcount++;
+	return (DIR_SIZE + 1);
 }
