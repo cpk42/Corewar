@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ld_op.c                                            :+:      :+:    :+:   */
+/*   xor_op.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckrommen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/24 16:56:35 by ckrommen          #+#    #+#             */
-/*   Updated: 2018/05/24 20:26:02 by ckrommen         ###   ########.fr       */
+/*   Created: 2018/05/24 19:55:49 by ckrommen          #+#    #+#             */
+/*   Updated: 2018/05/24 23:12:02 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		do_ld(t_proc *ps)
+int		do_xor(t_proc *ps)
 {
 	t_arg_type	*argtypes;
-	int			ind_offset;
 	t_op		*op;
+	int			args[4];
 
+	ft_bzero(args, 4);
 	op = PROCESS_CURRENT_OP(ps);
 	argtypes = extract_argtypes(get_byte(ps, 1));
+	fetch_args(argtypes, ps, (int *)args);
 	if (!has_legal_argtypes(op, argtypes))
 		return (2);
-	if (argtypes[0] == T_DIR)
-		ps->regs[get_byte(ps, 6) - 1] = get_int(ps, 2);
+	ps->regs[args[2] - 1] = args[0] ^ args[1];
+	if (!ps->regs[args[2] - 1])
+		ps->carry = 1;
 	else
-	{
-		ind_offset = follow_indirect_reference(ps, 3);
-		ps->regs[get_byte(ps, 5) - 1] = ind_offset;
-	}
+		ps->carry = 0;
 	return (instr_size(op, argtypes));
 }

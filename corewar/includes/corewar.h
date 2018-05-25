@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/24 16:05:24 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/24 23:11:35 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,16 @@ int			has_legal_argtypes(t_op *op, t_arg_type *argtypes);
 int			instr_size(t_op *op, t_arg_type *argtypes);
 
 /* ops */
+
+void		fetch_args(t_arg_type *argtypes, t_proc *ps, int *args);
 int			do_st(t_proc *ps);
 int			do_sti(t_proc *ps);
+int			do_ld(t_proc *ps);
+int			do_add(t_proc *ps);
+int			do_sub(t_proc *ps);
+int			do_and(t_proc *ps);
+int			do_or(t_proc *ps);
+int			do_xor(t_proc *ps);
 
 /*
 ** WIP struct for players.

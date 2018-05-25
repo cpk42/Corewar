@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 14:14:00 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/24 14:40:17 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/24 23:11:13 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,24 @@ static void		read_instr(char *ar, t_proc *ps)
 	{
 		do_sti(ps);
 	}
+	else if (opcode == LD)
+	{
+		do_ld(ps);
+	}
+	else if (opcode == ADD)
+	{
+		do_add(ps);
+	}
+	else if (opcode == SUB)
+		do_sub(ps);
+	else if (opcode == AND)
+		do_and(ps);
+	else if (opcode == OR)
+		do_or(ps);
+	else if (opcode == XOR)
+		do_xor(ps);
 }
-
-
+/*
 static void		test_st(void)
 {
 	char	*og_arena = g_arena;
@@ -84,11 +99,73 @@ static void		test_sti(void)
 	print_bytes(mem, 20);
 	g_arena = og_arena;
 }
+*/
+/*
+static void		test_ld(void)
+{
+	char	*og_arena = g_arena;
+	char	*mem = calloc(900, 1);
+	g_arena = mem;
+	t_proc	*ps = calloc(sizeof(*ps), 1);
+
+	ps->pc = 0;
+	ft_bzero(ps->regs, sizeof(ps->regs));
+//	ps->regs[1] = 0x66666666;
+	mem[0] = 0x02; // OP_ld
+	mem[1] = 0x90; // argcodes: 10100000 == T_DIR, T_REG
+	mem[2] = 0; // %255
+	mem[3] = 0; // ind offset = 0 ...
+	mem[4] = 0; // ind offset = 0 ...
+	mem[5] = 5; // ind offset = 0 ...
+	mem[6] = 0x02; // reg_b == r2
+	//lds value 0xFF000000 into reg2
+
+	puts("test_st\nBEFORE:");
+	print_bytes(mem, 20);
+	read_instr(mem, ps);
+	puts("AFTER:");
+	print_bytes(mem, 20);
+	print_registers(ps);
+	g_arena = og_arena;
+}
+*/
+
+static void		test_ld(void)
+{
+	char	*og_arena = g_arena;
+	char	*mem = calloc(900, 1);
+	g_arena = mem;
+	t_proc	*ps = calloc(sizeof(*ps), 1);
+
+	ps->pc = 0;
+	ft_bzero(ps->regs, sizeof(ps->regs));
+	ps->regs[0] = 1;
+	ps->regs[1] = 1;
+	ps->regs[2] = 0;
+	mem[0] = 0x06; // OP_and
+	mem[1] = 0xE4; // argcodes: 10010100 == T_DIR, T_REG, T_REG
+	mem[2] = 0; // 1
+	mem[3] = 4; // 1
+	mem[4] = 0; // 1
+	mem[5] = 0; // 1
+	mem[6] = 0; // 1
+	mem[7] = 1; // 1
+	mem[8] = 3; // 1
+
+	puts("test_st\nBEFORE:");
+	print_bytes(mem, 20);
+	read_instr(mem, ps);
+	puts("AFTER:");
+	print_bytes(mem, 20);
+	print_registers(ps);
+	g_arena = og_arena;
+}
 
 void	run_tests()
 {
-	test_st();
-	puts("");
-	test_sti();
-	printf("%d\n", LIVE);
+//	test_st();
+//	puts("");
+//	test_sti();
+//	printf("%d\n", LIVE);
+	test_ld();
 }
