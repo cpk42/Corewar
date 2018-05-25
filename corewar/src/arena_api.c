@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 15:49:46 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/24 15:49:48 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/24 17:35:06 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,14 @@ int			get_byte(t_proc *ps, int req_idx)
 unsigned long	bigendian_num(char *buf, size_t size)
 {
 	unsigned long res;
-	unsigned long x;
+	size_t i;
 
 	res = 0;
-	while (size > 0)
+	i = -1;
+	while (++i < size)
 	{
-		x = (unsigned long)(*buf);
-		x = x << ((size - 1) * 8);
-		res |= x;
-		--size;
-		++buf;
+		res <<= 8;
+		res |= (unsigned long)(buf[i]);
 	}
 	return (res);
 }

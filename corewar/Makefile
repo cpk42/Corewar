@@ -6,7 +6,7 @@
 #    By: mmoros <mmoros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/24 16:04:40 by ltanenba         ###   ########.fr        #
+#    Updated: 2018/05/24 17:09:00 by ckrommen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ FILES		= main.c \
 			  arena_api.c \
 			  dev_util.c \
 			  ops/sti_op.c \
-			  print_util.c
+			  print_util.c \
+			  ops/ld_op.c \
 
 SRC			= $(addprefix src/, $(FILES))
 OBJ			= $(addprefix obj/, $(FILES:.c=.o))
