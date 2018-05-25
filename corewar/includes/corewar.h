@@ -52,6 +52,7 @@ typedef struct		s_proc
 
 typedef struct			s_op
 {
+	int		(*op)(t_proc *ps);
 	char	*name;
 	int		argc;
 	int		legal_argtypes[4];
