@@ -6,45 +6,64 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 22:08:53 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/24 23:18:05 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define DEBUG // XXX
 #ifdef DEBUG
 # include <stdio.h>
+# include <assert.h>
 #endif
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
 # include "op.h"
+
+typedef struct		s_proc
+{
+	int					carry;
+	int					proc_id;
+	int					pc;
+	int					lcount;
+	int					tminus;
+	long				regs[REG_NUMBER];
+	struct s_proc		*next;
+	struct s_proc		*prev;
+}					t_proc;
+
+
+# include "arena.h"
 # include "libft.h"
 # include <stdlib.h>
-# include <string.h>
+# include <fcntl.h>
+# include <unistd.h>
 
 # define MAX_OPCODE 16
+# define PROCESS_CURRENT_OP(ps) (g_op_tab + ((int)(g_arena[ps->pc]) - 1))
+# define TRUNCATED_DIR_SIZE IND_SIZE
+# define ft_abs(x) ((x) < 0 ? -(x) : (x))
 
-/*
-** Always `MEMSAFE' memory accesses to make sure we don't exceed our boundaries.
-*/
-# define MEMSAFE(idx) (idx % MEM_SIZE)
-
-/*
-** Usually `LEASH', too, depending on the operation. IDX_MOD limits processes
-** to operating within a certain range. We won't leash on lld, lldi or lfork.
-*/
-# define LEASH(idx, pc) (pc + (idx % IDX_MOD))
-
-# define OP_XOR 0x08
-# define OP_OR 0x07
-# define OP_AND 0x06
-# define OP_SUB 0x05
-# define OP_ADD 0x04
-# define OP_ST 0x03
-# define OP_LD 0x02
-
-typedef unsigned char	byte;
+enum	e_opcodes
+{
+	LIVE = 1,
+	LD, 
+	ST, 
+	ADD,
+	SUB,
+	AND,
+	OR, 
+	XOR,
+	ZJMP,
+	LDI,
+	STI,
+	FORK,
+	LLD,
+	LLDI,
+	LFORK,
+	AFF
+};
 
 typedef struct			s_op
 {
@@ -55,42 +74,76 @@ typedef struct			s_op
 	int		cycle_cost;
 	char	*mnemonic;
 	int		has_codebyte;
-	int		changes_carry;
+	int		truncate;
 }					t_op;
-
-typedef struct			s_proc
-{
-	int			pc;
-	int			carry;
-	long		regs[REG_NUMBER];
-}						t_proc;
 
 extern t_op				g_op_tab[17];
 
-/*
-** Writing to memory and registers
-*/
+int			get_byte(t_proc *ps, int req_idx);
+int			get_short(t_proc *ps, int req_idx);
+int			get_int(t_proc *ps, int req_idx);
+void		print_bytes(void *p, int size);
+void		print_argtypes(t_arg_type *argtypes);
+void		print_registers(t_proc *ps);
+t_arg_type	*extract_argtypes(char coding_byte);
+int			has_legal_argtypes(t_op *op, t_arg_type *argtypes);
+int			instr_size(t_op *op, t_arg_type *argtypes);
 
-byte			*read_from_arena(byte *ar, int start_idx, size_t size, int pc);
-void			write_to_arena(byte *ar, int start_idx, size_t size, int pc, void *bytes);
-void			write_backwards(byte *ar, int idx, size_t size, int pc, void *bytes);
-void			reg_reg_write(t_proc *ps, int dst_reg, int src_reg);
-void			dir_reg_write(t_proc *ps, int dst_reg, int value);
-void			reg_mem_write(t_proc *ps, int dst_idx, int src_reg, byte *ar);
-
-/*
-** Argument type functions
-*/
-
-t_arg_type		*extract_argtypes(byte coding_byte);
-int				has_legal_argtypes(byte coding_byte, t_op *op);
+/* ops */
+int			do_st(t_proc *ps);
+int			do_sti(t_proc *ps);
 
 /*
-** Number utilities
+** WIP struct for players.
 */
 
-void			print_bytes(void *p, int size);
-unsigned long	bigendian_num(byte *buf, size_t size);
+typedef struct		s_player
+{
+	header_t			h;
+	char				id;
+	int					start_idx;
+	char				code[CHAMP_MAX_SIZE];
+	int					cycle_lived;
+	int					lcount;
+}					t_player;
 
+/*
+** Player functions.
+*/
+
+void				new_player(char *file_name, t_player *p);
+void				del_player(t_player **p);
+
+/*
+** WIP struct for proccesses.
+*/
+
+/*
+** t_proc functions:
+*/
+
+t_proc				*new_proc(int mem_idx, t_proc *parent);
+void				del_proc(t_proc **p);
+void				add_proc(int mem_idx, t_proc *parent);
+
+/*
+** Global declaration for g_vm.
+*/
+
+typedef struct		s_vm
+{
+	int					player_num;
+	t_player			p[MAX_PLAYERS];
+	int					proc_num;
+	t_proc				*proc_head;
+	int					cycle;
+	int					dminus;
+}					t_vm;
+
+t_vm				g_vm;
+
+void				initialize_vm(int player_num);
+void				print_arena(void);
+void				print_player(int player_num);
 
 #endif

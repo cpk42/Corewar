@@ -6,12 +6,17 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:46:46 by ltanenba          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/05/23 22:26:47 by ckrommen         ###   ########.fr       */
+=======
+/*   Updated: 2018/05/24 14:17:49 by jgelbard         ###   ########.fr       */
+>>>>>>> 50587556e69e31d5b2865c57cdc35477cbb041e1
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
+<<<<<<< HEAD
 void		do_st(byte *ar, t_proc *ps, int idx);
 void		do_ld(byte *ar, t_proc *ps, int idx);
 void		do_add(byte *ar, t_proc *ps, int idx);
@@ -19,9 +24,13 @@ void		do_sub(byte *ar, t_proc *ps, int idx);
 void		do_and(byte *ar, t_proc *ps, int idx);
 void		do_or(byte *ar, t_proc *ps, int idx);
 void		do_xor(byte *ar, t_proc *ps, int idx);
+=======
+void run_tests(void);
+>>>>>>> 50587556e69e31d5b2865c57cdc35477cbb041e1
 
-void		read_instr(byte *ar, int idx, t_proc *ps)
+static void			usage(void)
 {
+<<<<<<< HEAD
 	byte		opcode;
 	t_op		op;
 
@@ -237,5 +246,22 @@ int	main(void)
 
 	for (int i = 0; i < 16; i++)
 		printf("%ld ", ps->regs[i]);
+=======
+	ft_putendl("Ya dun goofed.");
+}
+
+int			main(int argc, char **argv)
+{
+	ft_putendl("Hello Corewar!");
+	if (argc - 1 >= 1 && argc - 1 <= MAX_PLAYERS)
+	{
+		initialize_vm(argc - 1);
+		initialize_arena(argv + 1);
+		ft_putendl("\n");
+		run_tests();
+	}
+	else
+		usage();
+>>>>>>> 50587556e69e31d5b2865c57cdc35477cbb041e1
 	return (0);
 }
