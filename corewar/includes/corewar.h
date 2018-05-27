@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/24 23:11:35 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/27 14:48:14 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ enum	e_opcodes
 
 typedef struct			s_op
 {
+	int		(*op)(t_proc *ps);
 	char	*name;
 	int		argc;
 	int		legal_argtypes[4];

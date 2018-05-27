@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 00:59:22 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/24 16:05:10 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/27 15:46:49 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void				initialize_arena(char **p_names)
 				(void *)g_vm.p[i].code, g_vm.p[i].h.prog_size);
 		add_proc(g_vm.p[i].start_idx, NULL);
 		g_vm.proc_head->regs[1] = ~(i + 1);
-		print_player(i + 1);
 	}
 	del_proc(&tmp_proc);
-	print_arena();
 }
