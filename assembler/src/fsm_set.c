@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.h                                              :+:      :+:    :+:   */
+/*   fsm_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mmoros <mmoros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/17 00:24:30 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/17 00:24:54 by ltanenba         ###   ########.fr       */
+/*   Created: 2018/05/28 11:53:46 by mmoros            #+#    #+#             */
+/*   Updated: 2018/05/28 12:39:56 by mmoros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASM_H
-# define ASM_H
+#include "asm.h"
 
-# include "libft.h"
+int				fsm_set_op(char *op);
+{
 
-#endif
+}
+
+static int		fsm_set_arg(..?);
+{
+
+}
+
+int				fsm_set_codebyte(char **parts);
+{
+
+}
