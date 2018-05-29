@@ -6,11 +6,25 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:46:46 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/29 12:48:30 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/29 13:14:56 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+void		reverse_bytes(void *_bytes, size_t size)
+{
+	char *bytes = (char *)_bytes;
+	char tmp;
+	size_t i = 0;
+	while (i < size / 2)
+	{
+		tmp = bytes[size - i - 1];
+		bytes[size - i - 1] = bytes[i];
+		bytes[i] = tmp;
+		++i;
+	}
+}
 
 t_token				*new_token(g_token_type type)
 {
@@ -50,7 +64,7 @@ static const char	*token_type_name(g_token_type type) //XXX move to print util
 
 void				print_token(t_token *token) //XXX move to print util
 {
-	printf("LABEL: type '%s', size %d, addr %d, ",
+	printf("TOKEN: type '%s', size %d, addr %d, ",
 			token_type_name(token->type),
 			token->size,
 			token->addr);
@@ -62,6 +76,18 @@ void				print_token(t_token *token) //XXX move to print util
 		print_bytes(&(token->data.bytes), token->size);
 	}
 }	
+
+void				print_token_list(t_list *token_list)
+{
+	t_token		*token;
+
+	while (token_list)
+	{
+		token = token_list->content;
+		print_token(token);
+		token_list = token_list->next;
+	}
+}
 
 t_token				*get_defined_label(char *label, t_symtab *symtab)
 {
@@ -91,29 +117,24 @@ int					get_label_offset(t_token *token, t_symtab *symtab, int parent_op_addr)
 	assert(IS_UNRESOLVED_LABEL_REF(token));
 	def = get_defined_label(token->data.label, symtab);
 	assert(def != NULL && HAS_ADDRESS(def));
-	offset = parent_op_addr - def->addr;
+	offset = def->addr - parent_op_addr;
 	return (offset);
 }
 
-static int			write_one_resolved_token(int fd, t_token *token, t_symtab *symtab, int last_opcode_addr)
+static int			write_one_resoluble_token(int fd, t_token *token, t_symtab *symtab, int last_opcode_addr)
 {
-	int			*bytes_p;
+	int			bytes;
 
-	//printf("writing: ");
-	//print_token(token);
 	assert(HAS_ADDRESS(token));
 	if (IS_UNRESOLVED_LABEL_REF(token))
-	{
-	//	puts("unresolved");
-		//free(token->data);
-		token->data.bytes = get_label_offset(token, symtab, last_opcode_addr);
-	}
-	bytes_p = &(token->data.bytes);
-	//printf("bytes_p: %p, %d\n", bytes_p, *bytes_p);
-	return (write(fd, bytes_p, token->size));
+		bytes = get_label_offset(token, symtab, last_opcode_addr);
+	else
+		bytes = token->data.bytes;
+	reverse_bytes(&bytes, token->size);
+	return (write(fd, &bytes, token->size));
 }
 
-int					write_resolved_tokens(int fd, t_list *token_list, t_symtab *symtab)
+int					write_resoluble_tokens(int fd, t_list *token_list, t_symtab *symtab)
 {
 	t_token		*token;
 	int			last_opcode_addr;
@@ -127,7 +148,7 @@ int					write_resolved_tokens(int fd, t_list *token_list, t_symtab *symtab)
 		assert(token != NULL && HAS_ADDRESS(token));
 		if (token->type == OPCODE_TOKEN)
 			last_opcode_addr = token->addr;
-		maybe_write_err = write_one_resolved_token(fd, token, symtab, last_opcode_addr);
+		maybe_write_err = write_one_resoluble_token(fd, token, symtab, last_opcode_addr);
 		if (maybe_write_err == -1)
 		{
 			perror(NULL);
@@ -165,7 +186,7 @@ t_token *quick_token(g_token_type type, int size, int addr, char *label, int byt
 	return (t);
 }
 
-t_list		*resolvable_tokens(void)
+t_list		*resoluble_tokens(void)
 {
 	t_token *live = quick_token(OPCODE_TOKEN, 1, 0, NULL, 1);
 	t_token *d39 = quick_token(DIRECT_TOKEN, 4, 1, NULL, 0x27);
@@ -190,25 +211,11 @@ t_list		*resolvable_tokens(void)
 
 int			main(int argc, char **argv)
 {
-	t_list *stream = resolvable_tokens();
+	t_list *token_list = resoluble_tokens();
 	t_symtab *symtab = fake_symtab();
 	char *scrap = "player.cor";
 	int fd = open(scrap, O_RDWR | O_CREAT | O_TRUNC | O_APPEND, 0777);
-	/*printf("%d fd\n", fd);
-	perror(NULL);*/
-	write_resolved_tokens(fd, stream, symtab);
-	/*for (int i = 0; i < 9; i++)
-	{
-		t_token *t = stream->content;
-		printf("%d: ", i);
-		print_token(t);
-		stream = stream->next;
-		if (!stream)
-		{
-			puts("NULL");
-			break ;
-		}
-	}*/
+	write_resoluble_tokens(fd, token_list, symtab);
 	argc = 0;
 	argv = 0;
 	return (0);
