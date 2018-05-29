@@ -6,7 +6,7 @@
 #    By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/17 00:23:25 by ltanenba         ###   ########.fr        #
+#    Updated: 2018/05/29 10:14:19 by jgelbard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,12 +37,16 @@ LIBS		= $(LIB_LEO)
 
 # Add header files here: (use full relative path to Makefile)
 INCLUDES	= libft_leo/includes/libft.h \
-			  includes/asm.h
+			  includes/asm.h \
+			  includes/corewar.h \
+			  includes/arena.h \
+			  includes/op.h \
 
 # Add source files here: (files assumed to be in ./src folder)
 FILES		= main.c
 
 SRC			= $(addprefix src/, $(FILES))
+SRC			+= ../corewar/src/dev_util.c #FIXME utils should be shared
 OBJ			= $(addprefix obj/, $(FILES:.c=.o))
 
 # ---------------------------------------------------------------------------- #
