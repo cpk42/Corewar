@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 00:24:30 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/29 10:08:20 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/29 12:10:30 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef enum		e_token_type
 	DIRECT_TOKEN,
 	INDIRECT_TOKEN,
 	REGISTER_TOKEN,
+	CODING_BYTE_TOKEN,
 	LABEL_DEFINITION,
 	LABEL_REF_DIRECT,
 	LABEL_REF_INDIRECT

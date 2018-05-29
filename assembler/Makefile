@@ -6,7 +6,7 @@
 #    By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/29 10:14:19 by jgelbard         ###   ########.fr        #
+#    Updated: 2018/05/29 11:36:31 by jgelbard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,9 @@ INCLUDES	= libft_leo/includes/libft.h \
 			  includes/corewar.h \
 			  includes/arena.h \
 			  includes/op.h \
+			  ../shared/includes/libft/libft.h \
+			  ../shared/includes/shared_util.h \
+
 
 # Add source files here: (files assumed to be in ./src folder)
 FILES		= main.c
