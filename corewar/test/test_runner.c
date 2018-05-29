@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/27 13:34:07 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/28 19:43:20 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/29 01:28:17 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void			run_test(char *test_name)
 	DEFINE_TEST(and);
 	DEFINE_TEST(sub);
 	DEFINE_TEST(xor);
+	DEFINE_TEST(or);
 	DEFINE_TEST(ld);
 }
 
