@@ -6,7 +6,7 @@
 /*   By: ckrommen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 16:56:35 by ckrommen          #+#    #+#             */
-/*   Updated: 2018/05/24 20:26:02 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/28 20:18:04 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int		do_ld(t_proc *ps)
 {
 	t_arg_type	*argtypes;
-	int			ind_offset;
 	t_op		*op;
 
 	op = PROCESS_CURRENT_OP(ps);
@@ -25,9 +24,6 @@ int		do_ld(t_proc *ps)
 	if (argtypes[0] == T_DIR)
 		ps->regs[get_byte(ps, 6) - 1] = get_int(ps, 2);
 	else
-	{
-		ind_offset = follow_indirect_reference(ps, 3);
-		ps->regs[get_byte(ps, 5) - 1] = ind_offset;
-	}
+		ps->regs[get_byte(ps, 4) - 1] = follow_indirect_reference(ps, 2);
 	return (instr_size(op, argtypes));
 }
