@@ -6,7 +6,7 @@
 /*   By: mmoros <mmoros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2018/05/28 14:51:16 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/28 19:37:42 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_op	g_op_tab[17] =
 	{do_sub, "sub", 3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction", 1, 0},
 	{do_and, "and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6, "et (and r1, r2, r3 r1&r2 -> r3", 1, 0},
 	{do_or, "or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 7, 6, "ou (or r1, r2, r3 r1 | r2 -> r3", 1, 0},
-	{not_implemented, "xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6,
+	{do_xor, "xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6,
         "ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0},
 	{not_implemented, "zjmp", 1, {T_DIR}, 9, 20, "jump if zero", 0, 1},
 	{not_implemented, "ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25, "load index", 1, 1},

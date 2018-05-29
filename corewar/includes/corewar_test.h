@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 13:37:45 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/28 18:58:08 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/05/28 19:43:33 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,7 @@ void		test_add(void);
 void		test_st(void);
 void		test_sti(void);
 void		test_and(void);
+void		test_sub(void);
+void		test_xor(void);
+void		test_ld(void);
 #endif
