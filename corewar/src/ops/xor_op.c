@@ -6,7 +6,7 @@
 /*   By: ckrommen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 19:55:49 by ckrommen          #+#    #+#             */
-/*   Updated: 2018/05/24 23:12:02 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/28 18:14:23 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		do_xor(t_proc *ps)
 	ft_bzero(args, 4);
 	op = PROCESS_CURRENT_OP(ps);
 	argtypes = extract_argtypes(get_byte(ps, 1));
-	fetch_args(argtypes, ps, (int *)args);
+	fetch_args(op, argtypes, ps, (int *)args);
 	if (!has_legal_argtypes(op, argtypes))
 		return (2);
 	ps->regs[args[2] - 1] = args[0] ^ args[1];

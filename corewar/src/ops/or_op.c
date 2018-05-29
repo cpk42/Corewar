@@ -6,7 +6,7 @@
 /*   By: ckrommen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 19:55:49 by ckrommen          #+#    #+#             */
-/*   Updated: 2018/05/24 23:08:04 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/28 18:14:11 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		do_or(t_proc *ps)
 	ft_bzero(args, 4);
 	op = PROCESS_CURRENT_OP(ps);
 	argtypes = extract_argtypes(get_byte(ps, 1));
-	fetch_args(argtypes, ps, (int *)args);
+	fetch_args(op, argtypes, ps, (int *)args);
 	if (!has_legal_argtypes(op, argtypes))
 		return (2);
 //	printf("\nmemory: %d %d %d %d %d %d %d %d\n", get_byte(ps, 0), get_byte(ps, 1), get_byte(ps, 2), get_byte(ps, 3), get_byte(ps, 4), get_byte(ps, 5), get_byte(ps, 6), get_byte(ps, 7));

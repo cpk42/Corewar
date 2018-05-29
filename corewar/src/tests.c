@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 14:14:00 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/24 23:11:13 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/28 21:32:40 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,13 @@ static void		read_instr(char *ar, t_proc *ps)
 	if((opcode = ar[0]) < 1 || opcode > MAX_OPCODE)
 		return ;
 	if (opcode == ST)
-	{
 		do_st(ps);
-	}
 	else if (opcode == STI)
-	{
 		do_sti(ps);
-	}
 	else if (opcode == LD)
-	{
 		do_ld(ps);
-	}
 	else if (opcode == ADD)
-	{
 		do_add(ps);
-	}
 	else if (opcode == SUB)
 		do_sub(ps);
 	else if (opcode == AND)
@@ -42,6 +34,8 @@ static void		read_instr(char *ar, t_proc *ps)
 		do_or(ps);
 	else if (opcode == XOR)
 		do_xor(ps);
+	else if (opcode == LDI)
+		do_ldi(ps);
 }
 /*
 static void		test_st(void)
@@ -139,19 +133,13 @@ static void		test_ld(void)
 
 	ps->pc = 0;
 	ft_bzero(ps->regs, sizeof(ps->regs));
-	ps->regs[0] = 1;
-	ps->regs[1] = 1;
-	ps->regs[2] = 0;
-	mem[0] = 0x06; // OP_and
-	mem[1] = 0xE4; // argcodes: 10010100 == T_DIR, T_REG, T_REG
+//	ps->regs[0] = 0;
+//	ps->regs[1] = 0;
+//	ps->regs[2] = 0;
+	mem[0] = 0x09; // OP_and
+	mem[1] = 0x80; // argcodes: 11100100 == ind, dir, reg
 	mem[2] = 0; // 1
-	mem[3] = 4; // 1
-	mem[4] = 0; // 1
-	mem[5] = 0; // 1
-	mem[6] = 0; // 1
-	mem[7] = 1; // 1
-	mem[8] = 3; // 1
-
+	mem[3] = 8; // 1
 	puts("test_st\nBEFORE:");
 	print_bytes(mem, 20);
 	read_instr(mem, ps);
