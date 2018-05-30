@@ -27,9 +27,9 @@ void		store_register_contents(t_proc *ps, int reg_idx, int req_idx)
 		vm_lwrite(ps->pc + req_idx, &n, 4);
 }
 
-int			follow_indirect_reference(t_proc *ps, int idx_of_indirect)
+long			follow_indirect_reference(t_proc *ps, int idx_of_indirect)
 {
-	int		res;
+	long	res;
 	short	ind;
 
 	ind = get_short(ps, idx_of_indirect);
@@ -37,9 +37,9 @@ int			follow_indirect_reference(t_proc *ps, int idx_of_indirect)
 	return (res);
 }
 
-int			get_int(t_proc *ps, int req_idx)
+long			get_int(t_proc *ps, int req_idx)
 {
-	int		res;
+	long	res;
 	char	*bytes;
 	t_op	*op;
 
@@ -49,12 +49,12 @@ int			get_int(t_proc *ps, int req_idx)
 	else
 		bytes = vm_lrawread(ps->pc + req_idx, 4);
 	res = bigendian_num(bytes, 4);
-	return ((int)res);
+	return (res);
 }
 
-int			get_short(t_proc *ps, int req_idx)
+long			get_short(t_proc *ps, int req_idx)
 {
-	int		res;
+	long	res;
 	char	*bytes;
 	t_op	*op;
 
@@ -65,12 +65,12 @@ int			get_short(t_proc *ps, int req_idx)
 		bytes = vm_lrawread(ps->pc + req_idx, 2);
 
 	res = bigendian_num(bytes, 2);
-	return ((int)res);
+	return (res);
 }
 
-int			get_byte(t_proc *ps, int req_idx)
+long			get_byte(t_proc *ps, int req_idx)
 {
-	int		res;
+	long	res;
 	char	*bytes;
 	t_op	*op;
 
@@ -80,7 +80,7 @@ int			get_byte(t_proc *ps, int req_idx)
 	else
 		bytes = vm_lrawread(ps->pc + req_idx, 1);
 	res = bigendian_num(bytes, 1);
-	return ((int)res);
+	return (res);
 }
 
 /*

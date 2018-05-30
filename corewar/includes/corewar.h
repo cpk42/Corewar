@@ -80,12 +80,13 @@ typedef struct			s_op
 
 extern t_op				g_op_tab[17];
 
-int			get_byte(t_proc *ps, int req_idx);
-int			get_short(t_proc *ps, int req_idx);
-int			get_int(t_proc *ps, int req_idx);
+long		get_byte(t_proc *ps, int req_idx);
+long		get_short(t_proc *ps, int req_idx);
+long		get_int(t_proc *ps, int req_idx);
 void		print_bytes(void *p, int size);
 void		print_argtypes(t_arg_type *argtypes);
 void		print_registers(t_proc *ps);
+void		print_reg_bytes(t_proc *ps);
 t_arg_type	*extract_argtypes(char coding_byte);
 int			has_legal_argtypes(t_op *op, t_arg_type *argtypes);
 int			instr_size(t_op *op, t_arg_type *argtypes);
