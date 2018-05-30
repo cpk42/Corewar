@@ -52,4 +52,14 @@ void		print_registers(t_proc *ps)
 	}
 }
 
+void		print_registers_bytes(t_proc *ps)
+{
+	printf("registers:\n");
+	for (int i = 0; i < REG_NUMBER; i++)
+	{
+		printf("%d: ", i);
+		print_bytes(ps->regs + i, sizeof(ps->regs[i]));
+	}
+}
+
 #endif
