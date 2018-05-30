@@ -6,7 +6,7 @@
 #    By: mmoros <mmoros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/28 21:35:13 by ckrommen         ###   ########.fr        #
+#    Updated: 2018/05/29 19:30:06 by ckrommen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,8 @@ OPS_FILES	= st_op.c \
 			  ldi_op.c \
 			  zjmp_op.c \
 			  lld_op.c \
+			  lldi_op.c \
+			  aff_op.c \
 			  helper_op.c \
 
 SRC			= $(addprefix src/, $(FILES)) $(addprefix src/ops/, $(OPS_FILES))

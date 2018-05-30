@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 15:49:46 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/28 19:17:22 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/29 20:19:43 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int			follow_indirect_reference(t_proc *ps, int idx_of_indirect)
 	short	ind;
 
 	ind = get_short(ps, idx_of_indirect);
+	printf("\n%d\n\n", ind);
 	res = get_int(ps, ind);
+	printf("\n%d\n\n", res);
 	return (res);
 }
 
@@ -48,6 +50,7 @@ int			get_int(t_proc *ps, int req_idx)
 		bytes = vm_rawread(ps->pc, req_idx, 4);
 	else
 		bytes = vm_lrawread(ps->pc + req_idx, 4);
+	printf("\n\nBYTES: %x %x %x %x\n\n", bytes[0], bytes[1], bytes[2], bytes[3]);
 	res = bigendian_num(bytes, 4);
 	return ((int)res);
 }

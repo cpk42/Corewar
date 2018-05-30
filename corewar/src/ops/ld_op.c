@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aff_op.c                                           :+:      :+:    :+:   */
+/*   ld_op.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckrommen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 16:56:35 by ckrommen          #+#    #+#             */
-/*   Updated: 2018/05/29 19:19:49 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/29 19:50:49 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		do_aff(t_proc *ps)
+int		do_ld(t_proc *ps)
 {
 	t_arg_type	*argtypes;
 	int			args[4];
@@ -24,6 +24,10 @@ int		do_aff(t_proc *ps)
 	fetch_args(op, argtypes, ps, args);
 	if (!has_legal_argtypes(op, argtypes))
 		return (2);
-	ft_putchar(ps->regs[args[0] - 1] % 256);
+	ps->regs[args[1] - 1] = args[0];
+	if (!ps->regs[args[1]])
+		ps->carry = 1;
+	else
+		ps->carry = 0;
 	return (instr_size(op, argtypes));
 }
