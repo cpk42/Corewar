@@ -6,82 +6,53 @@
 #    By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/29 11:36:31 by jgelbard         ###   ########.fr        #
+#    Updated: 2018/05/29 15:50:19 by jgelbard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= asm
 
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra
-INC_FLAGS	= -I libft_leo/includes -I includes
 
 # -g for lldb
 DEBUG		= #-g
 
-# Cosmetics Section:
+HEADERS = libft.h asm.h corewar.h arena.h op.h
+INC_DIRS = includes ../corewar/includes ../libft/includes
+OBJ = asm.o print_bytes.o \
 
-OK_COLOR	= \033[38;5;105;1m
-OBJ_COLOR	= \033[38;5;208m
-COM_COLOR	= \033[38;5;200m
-LIB_COLOR	= \033[1;32m
-NO_COLOR    = \033[m
+VPATH = $(INC_DIRS) src ../corewar/src ../libft
+CFLAGS = -Wall -Werror -Wextra $(addprefix -I, $(INC_DIRS)) $(DEBUG)
 
-COM_STRING	= "Compiling:"
-
-# End Cosmetics.
-
-LIB_LEO		= libft_leo/libft.a
-
-LIBS		= $(LIB_LEO)
-
-# Add header files here: (use full relative path to Makefile)
-INCLUDES	= libft_leo/includes/libft.h \
-			  includes/asm.h \
-			  includes/corewar.h \
-			  includes/arena.h \
-			  includes/op.h \
-			  ../shared/includes/libft/libft.h \
-			  ../shared/includes/shared_util.h \
-
-
-# Add source files here: (files assumed to be in ./src folder)
-FILES		= main.c
-
-SRC			= $(addprefix src/, $(FILES))
-SRC			+= ../corewar/src/dev_util.c #FIXME utils should be shared
-OBJ			= $(addprefix obj/, $(FILES:.c=.o))
-
+.INTERMEDIATE: $(OBJ)
+.SILENT:
 # ---------------------------------------------------------------------------- #
 
-all: $(NAME)
+all: print $(NAME)
+$(OBJ): $(HEADERS) libft.a
 
-$(NAME): $(LIB_LEO) $(SRC)
-	@printf "%b" "$(LIB_COLOR)Compiling: $(OK_COLOR)$@\n$(NO_COLOR)"
-	@$(CC) $(DEBUG) $(CFLAGS) $(INC_FLAGS) -o $(NAME) $(SRC) $(LIBS)
+print:
+	@printf "%b" "$(LIB_COLOR)Compiling: $(OK_COLOR)$(NAME)\n$(NO_COLOR)"
 
-$(LIB_LEO):
-	@make -C libft_leo
+$(NAME): libft.a $(OBJ)
+
+libft.a:
+	@make -C ../libft
 
 clean:
 	@printf "Cleaning up $(NAME)...\n"
+	rm -f $(OBJ)
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C libft_leo fclean
+	@make -C ../libft fclean
 
-obj:
-	@printf "Creating obj/ directory...\n"
-	@mkdir obj/
+re: fclean
+	make -C ../libft
+	make
 
-obj/%.o: $(SRC) | obj
-	@printf "%b" "$(COM_COLOR)  $(COM_STRING) $(OBJ_COLOR)$@\n$(NO_COLOR)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+.PHONY: clean fclean all re print
 
-re: fclean all
-
-norm:
-	@printf "%b" "$(LIB_COLOR)Checking Norm...\n$(NO_COLOR)"
-	@norminette $(SRC) $(INCLUDES)
-
-.PHONY: clean fclean all re
+OK_COLOR       = \033[38;5;105;1m
+LIB_COLOR      = \033[1;32m
+NO_COLOR    = \033[m
