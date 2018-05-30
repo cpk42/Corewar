@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 06:56:55 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/29 20:32:47 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/29 22:41:51 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,7 @@ char		*vm_rawread(int pc, int index, size_t size)
 	s = pc <= index ? 1 : -1;
 	index = pc + (s * (ft_abs(index - pc) % IDX_MOD));
 	if (index + size < MEM_SIZE)
-	{
-		puts("g_arena bytes\n");
-		print_bytes(g_arena+1, 20);
 		ft_memcpy(buf, (g_arena + index), size);
-	}
 	else
 		while (++i < (int)size)
 			buf[i] = g_arena[(index + i) % MEM_SIZE];

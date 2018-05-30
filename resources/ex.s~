@@ -1,8 +1,7 @@
 .name "tiny dong"
 .comment "reeee"
 
-ld 1,r1
-	
+
 #ld %184549376,r2
 #sti r2,%4,%6
 
