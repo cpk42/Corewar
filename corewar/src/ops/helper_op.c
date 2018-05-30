@@ -6,7 +6,7 @@
 /*   By: ckrommen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 21:36:09 by ckrommen          #+#    #+#             */
-/*   Updated: 2018/05/28 19:53:08 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/29 16:30:08 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void		fetch_args(t_op *op, t_arg_type *argtypes, t_proc *ps, int *arr)
 	while (++x < 3)
 	{
 		if (argtypes[x] == T_REG)
-			arr[x] = x == 2 ? get_byte(ps, i) : ps->regs[get_byte(ps, i) - 1];
+			arr[x] = x == 2 || op->opcode == STI ? get_byte(ps, i) :
+				ps->regs[get_byte(ps, i) - 1];
 		else if (argtypes[x] == T_DIR)
 			arr[x] = op->truncate ? get_short(ps, i) : get_int(ps, i);
 		else if (argtypes[x] == T_IND)

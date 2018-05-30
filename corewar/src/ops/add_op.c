@@ -6,7 +6,7 @@
 /*   By: ckrommen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 19:55:49 by ckrommen          #+#    #+#             */
-/*   Updated: 2018/05/24 20:13:21 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/05/29 16:31:45 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int		do_add(t_proc *ps)
 	argtypes = extract_argtypes(get_byte(ps, 1));
 	if (!has_legal_argtypes(op, argtypes))
 		return (2);
-//	printf("%d %d %d %d %d\n", get_byte(ps, 0), get_byte(ps, 1), get_byte(ps, 2), get_byte(ps, 3), get_byte(ps, 4));
 	ps->regs[get_byte(ps, 4) - 1] = ps->regs[get_byte(ps, 2) - 1] + ps->regs[get_byte(ps, 3) - 1];
 	if (!ps->regs[get_byte(ps, 4) - 1])
 		ps->carry = 1;
