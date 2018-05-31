@@ -3,56 +3,63 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/29 15:50:19 by jgelbard         ###   ########.fr        #
+#    Created: 2018/05/31 14:41:52 by jgelbard          #+#    #+#              #
+#    Updated: 2018/05/31 17:25:37 by jgelbard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= asm
+NAME = asm
+SRC = $(NAME).c \
+	  print_util.c \
+	  asm_test.c \
+	  util.c \
 
-CC			= gcc
+SOURCE_DIRS = src ../corewar/src
+INCLUDE_DIRS = includes ../corewar/includes libft/includes
+LIB_DIRS = libft
+LDLIBS = -lft
 
-# -g for lldb
-DEBUG		= #-g
+CFLAGS = -Wall -Wextra -Werror
 
-HEADERS = libft.h asm.h corewar.h arena.h op.h
-INC_DIRS = includes ../corewar/includes ../libft/includes
-OBJ = asm.o print_bytes.o \
+# --------------------------------------------------------------------------- #
 
-VPATH = $(INC_DIRS) src ../corewar/src ../libft
-CFLAGS = -Wall -Werror -Wextra $(addprefix -I, $(INC_DIRS)) $(DEBUG)
+CC = gcc
+CPPFLAGS += $(addprefix -I, $(INCLUDE_DIRS))
+LDFLAGS += $(addprefix -L, $(LIB_DIRS))
+OUTPUT_OPTION += -MMD -MP
 
-.INTERMEDIATE: $(OBJ)
-.SILENT:
-# ---------------------------------------------------------------------------- #
+BUILD_DIR = build
+OBJ = $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRC))
+DEPEND_FILES = $(OBJ:.o=.d)
 
-all: print $(NAME)
-$(OBJ): $(HEADERS) libft.a
+vpath %.c $(SOURCE_DIRS)
+vpath %.d $(BUILD_DIR)
+vpath %.o $(BUILD_DIR)
+vpath %.h $(INCLUDE_DIRS)
+vpath %.a $(LIB_DIRS)
 
-print:
-	@printf "%b" "$(LIB_COLOR)Compiling: $(OK_COLOR)$(NAME)\n$(NO_COLOR)"
+# --------------------------------------------------------------------------- #
 
-$(NAME): libft.a $(OBJ)
+all: $(NAME)
 
-libft.a:
-	@make -C ../libft
+$(NAME): $(OBJ)
+	$(LINK.c) -o $@ $(LDLIBS) $^
+
+$(OBJ): $(BUILD_DIR)/%.o: %.c
+	$(COMPILE.c) $(OUTPUT_OPTION) -c $< -o $@
 
 clean:
-	@printf "Cleaning up $(NAME)...\n"
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(DEPEND_FILES)
 
 fclean: clean
-	@rm -f $(NAME)
-	@make -C ../libft fclean
+	rm -f $(NAME)
 
-re: fclean
-	make -C ../libft
-	make
+re: fclean all
 
-.PHONY: clean fclean all re print
+.PHONY: all clean fclean re
 
-OK_COLOR       = \033[38;5;105;1m
-LIB_COLOR      = \033[1;32m
-NO_COLOR    = \033[m
+# --------------------------------------------------------------------------- #
+
+-include $(DEPEND_FILES)
