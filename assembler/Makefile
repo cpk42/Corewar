@@ -6,7 +6,7 @@
 #    By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/31 14:41:52 by jgelbard          #+#    #+#              #
-#    Updated: 2018/05/31 17:25:37 by jgelbard         ###   ########.fr        #
+#    Updated: 2018/06/04 16:41:47 by jgelbard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ $(NAME): $(OBJ)
 	$(LINK.c) -o $@ $(LDLIBS) $^
 
 $(OBJ): $(BUILD_DIR)/%.o: %.c
+	mkdir -p $(BUILD_DIR)
 	$(COMPILE.c) $(OUTPUT_OPTION) -c $< -o $@
 
 $(LIB_DIRS):
