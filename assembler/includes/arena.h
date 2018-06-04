@@ -1,1 +1,0 @@
-../../corewar/includes/arena.h
