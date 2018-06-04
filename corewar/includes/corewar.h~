@@ -6,7 +6,11 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/29 17:13:47 by ckrommen         ###   ########.fr       */
+<<<<<<< HEAD
+/*   Updated: 2018/05/29 19:45:19 by ckrommen         ###   ########.fr       */
+=======
+/*   Updated: 2018/05/27 14:48:14 by jgelbard         ###   ########.fr       */
+>>>>>>> d816cf6483dcd1e2bb18987051a2d98734380024
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +52,7 @@ typedef struct		s_proc
 # define IS_REG(x) (x == 1)
 # define IS_DIR(x) (x == 2)
 # define IS_IND(x) (x == 3)
+# define REG_IND(x) (x == LD || x == STI)
 
 enum	e_opcodes
 {
@@ -71,6 +76,7 @@ enum	e_opcodes
 
 typedef struct			s_op
 {
+	int		(*op)(t_proc *ps);
 	char	*name;
 	int		argc;
 	int		legal_argtypes[4];

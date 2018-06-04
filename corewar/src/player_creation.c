@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 07:01:40 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/23 20:30:32 by ltanenba         ###   ########.fr       */
+/*   Updated: 2018/05/28 14:07:10 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void			new_player(char *file_name, t_player *tmp)
 	int			fd;
 	static int	id = 0;
 
-	ft_putendl(file_name);
 	if((fd = open(file_name, O_RDONLY)) < 0)
 		return ;
 	st_get_int(fd, &tmp->h.magic);

@@ -6,7 +6,7 @@
 #    By: mmoros <mmoros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/29 19:30:06 by ckrommen         ###   ########.fr        #
+#    Updated: 2018/06/03 17:46:44 by ckrommen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ OPS_FILES	= st_op.c \
 SRC			= $(addprefix src/, $(FILES)) $(addprefix src/ops/, $(OPS_FILES))
 OBJ			= $(addprefix obj/, $(FILES:.c=.o)) $(addprefix obj/, $(OPS_FILES))
 
+
 # ---------------------------------------------------------------------------- #
 
 all: $(NAME)
@@ -107,5 +108,12 @@ re: fclean all
 norm:
 	@printf "%b" "$(LIB_COLOR)Checking Norm...\n$(NO_COLOR)"
 	@norminette $(SRC) $(INCLUDES)
+
+TEST_SRC = $(subst src/main.c, test/test_runner.c, $(SRC))
+TEST_SRC += $(wildcard test/**/*.c)
+
+tcore: $(LIB_LEO) $(TEST_SRC) $(INCLUDES) includes/corewar_test.h
+	@printf "%b" "$(LIB_COLOR)Compiling: $(OK_COLOR)$@\n$(NO_COLOR)"
+	@$(CC) $(DEBUG) $(CFLAGS) $(INC_FLAGS) -o $@ $(TEST_SRC) $(LIBS)
 
 .PHONY: clean fclean all re
