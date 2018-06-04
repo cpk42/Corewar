@@ -42,13 +42,16 @@ vpath %.a $(LIB_DIRS)
 
 # --------------------------------------------------------------------------- #
 
-all: $(NAME)
+all: $(LIB_DIRS) $(NAME)
 
 $(NAME): $(OBJ)
 	$(LINK.c) -o $@ $(LDLIBS) $^
 
 $(OBJ): $(BUILD_DIR)/%.o: %.c
 	$(COMPILE.c) $(OUTPUT_OPTION) -c $< -o $@
+
+$(LIB_DIRS):
+	make -C $@
 
 clean:
 	rm -f $(OBJ) $(DEPEND_FILES)
@@ -59,6 +62,7 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+.PHONY: $(LIB_DIRS)
 
 # --------------------------------------------------------------------------- #
 
