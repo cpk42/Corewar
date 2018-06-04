@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/06/02 20:32:54 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/06/04 15:34:20 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int			get_int(t_proc *ps, int req_idx);
 void		print_bytes(void *p, int size);
 void		print_argtypes(t_arg_type *argtypes);
 void		print_registers(t_proc *ps);
+void		print_reg_bytes(t_proc *ps);
 t_arg_type	*extract_argtypes(char coding_byte);
 int			has_legal_argtypes(t_op *op, t_arg_type *argtypes);
 int			instr_size(t_op *op, t_arg_type *argtypes);

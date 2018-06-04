@@ -1,5 +1,5 @@
-.name "tiny dong"
-.comment "reeee"
+.name "new"
+.comment "wow"
 
 ld 1,r1
 	

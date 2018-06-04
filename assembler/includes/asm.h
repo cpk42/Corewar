@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 00:24:30 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/29 12:10:30 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/06/03 18:06:12 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,15 @@ typedef t_list		t_symtab;
 
 /* debug */
 
-void				print_token(struct s_token *token);
+void				reverse_bytes(void *_bytes, size_t size);
+
+t_token				*new_token(g_token_type type);
+int					write_resoluble_tokens(int fd, t_list *token_list, t_symtab *symtab);
+
+/* debug */
+
+void				test_asm();
+void				print_token_list(t_list *token_list);
+void				print_token(t_token *token);
+
 #endif

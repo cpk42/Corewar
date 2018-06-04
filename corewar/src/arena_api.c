@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 15:49:46 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/29 22:40:54 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/06/04 15:35:23 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		store_register_contents(t_proc *ps, int reg_idx, int req_idx)
 
 int			follow_indirect_reference(t_proc *ps, int idx_of_indirect)
 {
-	int		res;
+	long	res;
 	short	ind;
 
 	ind = get_short(ps, idx_of_indirect);
@@ -39,7 +39,7 @@ int			follow_indirect_reference(t_proc *ps, int idx_of_indirect)
 
 int			get_int(t_proc *ps, int req_idx)
 {
-	int		res;
+	long	res;
 	char	*bytes;
 	t_op	*op;
 
@@ -49,12 +49,12 @@ int			get_int(t_proc *ps, int req_idx)
 	else
 		bytes = vm_lrawread(ps->pc + req_idx, 4);
 	res = bigendian_num(bytes, 4);
-	return ((int)res);
+	return (res);
 }
 
 int			get_short(t_proc *ps, int req_idx)
 {
-	int		res;
+	long	res;
 	char	*bytes;
 	t_op	*op;
 
@@ -65,12 +65,12 @@ int			get_short(t_proc *ps, int req_idx)
 		bytes = vm_lrawread(ps->pc + req_idx, 2);
 
 	res = bigendian_num(bytes, 2);
-	return ((int)res);
+	return (res);
 }
 
 int			get_byte(t_proc *ps, int req_idx)
 {
-	int		res;
+	long	res;
 	char	*bytes;
 	t_op	*op;
 
@@ -80,7 +80,7 @@ int			get_byte(t_proc *ps, int req_idx)
 	else
 		bytes = vm_lrawread(ps->pc + req_idx, 1);
 	res = bigendian_num(bytes, 1);
-	return ((int)res);
+	return (res);
 }
 
 /*
