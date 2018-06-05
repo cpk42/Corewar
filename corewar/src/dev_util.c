@@ -30,23 +30,14 @@ void		print_argtypes(t_arg_type *argtypes)
 
 void		print_bytes(void *p, int size)
 {
-	char	*b;
 	int		i;
 
-	b = (char *)p;
-	printf("%02X", *b);
-	--size;
-	++b;
-	i = 1;
-	while (size > 0)
+	i = 0;
+	while (i < size)
 	{
-		if (!(i % 4))
-			printf(" ");
-		else
-			printf(":");
-		printf("%02hhX", *b);
-		++b;
-		--size;
+		if (i > 0)
+			printf("%s", i % 4 == 0 ? " " : ":");
+		printf("%02hhX", ((unsigned char *)p)[i]);
 		++i;
 	}
 	printf("\n");
@@ -58,6 +49,16 @@ void		print_registers(t_proc *ps)
 	for (int i = 0; i < REG_NUMBER; i++)
 	{
 		printf("%d%s", (int)(ps->regs[i]), i == REG_NUMBER - 1 ? "\n" : ", ");
+	}
+}
+
+void		print_registers_bytes(t_proc *ps)
+{
+	printf("registers:\n");
+	for (int i = 0; i < REG_NUMBER; i++)
+	{
+		printf("%d: ", i);
+		print_bytes(ps->regs + i, sizeof(ps->regs[i]));
 	}
 }
 
