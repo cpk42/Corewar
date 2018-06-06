@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 04:26:24 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/06/06 12:47:45 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/06/03 18:07:41 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,13 @@ char				*g_arena;
 /* 'public api' */
 void			store_register_contents(t_proc *ps, int reg_num, int req_idx);
 unsigned long	bigendian_num(char *buf, size_t size);
-long			get_int(t_proc *ps, int req_idx);
-long			get_short(t_proc *ps, int req_idx);
-long			get_byte(t_proc *ps, int req_idx);
-long			follow_indirect_reference(t_proc *ps, int index_of_indirect);
+
+int				get_int(t_proc *ps, int req_idx);
+int				get_short(t_proc *ps, int req_idx);
+int				get_byte(t_proc *ps, int req_idx);
+int				follow_indirect_reference(t_proc *ps, int index_of_indirect);
+int				short_indirect_reference(t_proc *ps, int index_of_indirect);
+
 /* internals */
 void		_store_register_contents(t_proc *ps, int reg_idx, int req_idx);
 void		_lstore_register_contents(t_proc *ps, int reg_idx, int req_idx);

@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   and_op.c                                           :+:      :+:    :+:   */
+/*   lld_op.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckrommen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/24 19:55:49 by ckrommen          #+#    #+#             */
-/*   Updated: 2018/05/28 18:14:04 by ckrommen         ###   ########.fr       */
+/*   Created: 2018/05/24 16:56:35 by ckrommen          #+#    #+#             */
+/*   Updated: 2018/05/29 13:08:11 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		do_and(t_proc *ps)
+int		do_lld(t_proc *ps)
 {
 	t_arg_type	*argtypes;
-	t_op		*op;
 	int			args[4];
-
+	t_op		*op;
+	
 	ft_bzero(args, 4);
 	op = PROCESS_CURRENT_OP(ps);
 	argtypes = extract_argtypes(get_byte(ps, 1));
-	fetch_args(op, argtypes, ps, (int *)args);
+	fetch_args(op, argtypes, ps, args);
 	if (!has_legal_argtypes(op, argtypes))
 		return (2);
-	ps->regs[args[2] - 1] = args[0] & args[1];
-	if (!ps->regs[args[2] - 1])
+	ps->regs[args[1]] = args[0];
+	if (!ps->regs[args[1]])
 		ps->carry = 1;
 	else
 		ps->carry = 0;

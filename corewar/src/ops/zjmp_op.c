@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   and_op.c                                           :+:      :+:    :+:   */
+/*   zjmp_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ckrommen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/24 19:55:49 by ckrommen          #+#    #+#             */
-/*   Updated: 2018/05/28 18:14:04 by ckrommen         ###   ########.fr       */
+/*   Created: 2018/05/28 21:25:08 by ckrommen          #+#    #+#             */
+/*   Updated: 2018/05/29 19:29:47 by ckrommen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		do_and(t_proc *ps)
+int do_zjmp(t_proc *ps)
 {
 	t_arg_type	*argtypes;
 	t_op		*op;
@@ -24,10 +24,8 @@ int		do_and(t_proc *ps)
 	fetch_args(op, argtypes, ps, (int *)args);
 	if (!has_legal_argtypes(op, argtypes))
 		return (2);
-	ps->regs[args[2] - 1] = args[0] & args[1];
-	if (!ps->regs[args[2] - 1])
-		ps->carry = 1;
+	if (ps->carry)
+		return (args[0] % IDX_MOD);
 	else
-		ps->carry = 0;
-	return (instr_size(op, argtypes));
+		return (0);
 }

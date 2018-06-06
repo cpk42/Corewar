@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/06/06 11:58:24 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/06/06 12:48:43 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ typedef struct		s_proc
 # define PROCESS_CURRENT_OP(ps) (g_op_tab + ((int)(g_arena[ps->pc]) - 1))
 # define TRUNCATED_DIR_SIZE IND_SIZE
 # define ft_abs(x) ((x) < 0 ? -(x) : (x))
+# define READ_IND(x) (x == 10 || x == 14)
+# define IS_REG(x) (x == 1)
+# define IS_DIR(x) (x == 2)
+# define IS_IND(x) (x == 3)
+# define REG_IND(x) (x == LD || x == STI)
 
 enum	e_opcodes
 {
@@ -94,15 +99,23 @@ int			instr_size(t_op *op, t_arg_type *argtypes);
 
 /* ops */
 
-void		fetch_args(t_arg_type *argtypes, t_proc *ps, int *args);
-int			do_st(t_proc *ps);
-int			do_sti(t_proc *ps);
+void		fetch_args(t_op *op, t_arg_type *argtypes, t_proc *ps, int *args);
+int			do_live(t_proc *ps);
 int			do_ld(t_proc *ps);
+int			do_st(t_proc *ps);
 int			do_add(t_proc *ps);
 int			do_sub(t_proc *ps);
 int			do_and(t_proc *ps);
 int			do_or(t_proc *ps);
 int			do_xor(t_proc *ps);
+int			do_zjmp(t_proc *ps);
+int			do_ldi(t_proc *ps);
+int			do_sti(t_proc *ps);
+int			do_fork(t_proc *ps);
+int			do_lld(t_proc *ps);
+int			do_lldi(t_proc *ps);
+int			do_lfork(t_proc *ps);
+int			do_aff(t_proc *ps);
 
 /*
 ** WIP struct for players.

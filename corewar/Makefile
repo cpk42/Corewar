@@ -6,7 +6,7 @@
 #    By: mmoros <mmoros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/05/28 14:54:53 by jgelbard         ###   ########.fr        #
+#    Updated: 2018/06/03 17:46:44 by ckrommen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,18 +55,23 @@ FILES		= main.c \
 			  arena_api.c \
 			  dev_util.c \
 			  print_util.c \
-			  ops/helper_op.c \
-			  ops/ld_op.c \
-			  ops/add_op.c \
-			  ops/sub_op.c \
-			  ops/and_op.c \
-			  ops/or_op.c \
-			  ops/xor_op.c \
 
 OPS_FILES	= st_op.c \
 			  sti_op.c \
 			  live_op.c \
-			  fork_op.c
+			  fork_op.c \
+			  ld_op.c \
+			  add_op.c \
+			  sub_op.c \
+			  and_op.c \
+			  or_op.c \
+			  xor_op.c \
+			  ldi_op.c \
+			  zjmp_op.c \
+			  lld_op.c \
+			  lldi_op.c \
+			  aff_op.c \
+			  helper_op.c \
 
 SRC			= $(addprefix src/, $(FILES)) $(addprefix src/ops/, $(OPS_FILES))
 OBJ			= $(addprefix obj/, $(FILES:.c=.o)) $(addprefix obj/, $(OPS_FILES))
