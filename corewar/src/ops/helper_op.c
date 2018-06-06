@@ -6,7 +6,7 @@
 /*   By: ckrommen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 21:36:09 by ckrommen          #+#    #+#             */
-/*   Updated: 2018/05/29 19:52:08 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/06/06 13:08:37 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		fetch_args(t_op *op, t_arg_type *argtypes, t_proc *ps, int *arr)
 	}
 }
 
-int		short_indirect_reference(t_proc *ps, int idx_of_indirect)
+long	short_indirect_reference(t_proc *ps, int idx_of_indirect)
 {
 	short	ind;
 	short	ret;

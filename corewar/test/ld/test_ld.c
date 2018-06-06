@@ -6,7 +6,7 @@
 /*   By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 19:39:42 by jgelbard          #+#    #+#             */
-/*   Updated: 2018/05/28 20:24:56 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/06/06 13:12:22 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void				test_ld(void)
 	ps = quick_test_setup("ld", "drx", WHATEVER, WHATEVER, WHATEVER);
 	assert(ps->regs[1] == 9190);
 	ps = quick_test_setup("ld", "irx", WHATEVER, WHATEVER, WHATEVER);
-	assert(ps->regs[1] == PROBLEM);
+	long res = PROBLEM;
+	assert(!ft_memcmp(ps->regs + 1, &res, 4));
 }
