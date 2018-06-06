@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/06/04 15:34:20 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/06/06 12:48:43 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct		s_proc
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <limits.h>
 
 # define MAX_OPCODE 16
 # define PROCESS_CURRENT_OP(ps) (g_op_tab + ((int)(g_arena[ps->pc]) - 1))
@@ -85,9 +86,9 @@ typedef struct			s_op
 
 extern t_op				g_op_tab[17];
 
-int			get_byte(t_proc *ps, int req_idx);
-int			get_short(t_proc *ps, int req_idx);
-int			get_int(t_proc *ps, int req_idx);
+long		get_byte(t_proc *ps, int req_idx);
+long		get_short(t_proc *ps, int req_idx);
+long		get_int(t_proc *ps, int req_idx);
 void		print_bytes(void *p, int size);
 void		print_argtypes(t_arg_type *argtypes);
 void		print_registers(t_proc *ps);

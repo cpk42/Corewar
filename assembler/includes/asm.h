@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 00:24:30 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/06/03 18:06:12 by ckrommen         ###   ########.fr       */
+/*   Updated: 2018/06/06 12:47:26 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,4 @@ int					write_resoluble_tokens(int fd, t_list *token_list, t_symtab *symtab);
 void				test_asm();
 void				print_token_list(t_list *token_list);
 void				print_token(t_token *token);
-
 #endif

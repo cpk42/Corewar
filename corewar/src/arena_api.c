@@ -27,7 +27,7 @@ void		store_register_contents(t_proc *ps, int reg_idx, int req_idx)
 		vm_lwrite(ps->pc + req_idx, &n, 4);
 }
 
-int			follow_indirect_reference(t_proc *ps, int idx_of_indirect)
+long			follow_indirect_reference(t_proc *ps, int idx_of_indirect)
 {
 	long	res;
 	short	ind;
@@ -37,7 +37,7 @@ int			follow_indirect_reference(t_proc *ps, int idx_of_indirect)
 	return (res);
 }
 
-int			get_int(t_proc *ps, int req_idx)
+long			get_int(t_proc *ps, int req_idx)
 {
 	long	res;
 	char	*bytes;
@@ -52,7 +52,7 @@ int			get_int(t_proc *ps, int req_idx)
 	return (res);
 }
 
-int			get_short(t_proc *ps, int req_idx)
+long			get_short(t_proc *ps, int req_idx)
 {
 	long	res;
 	char	*bytes;
@@ -68,7 +68,7 @@ int			get_short(t_proc *ps, int req_idx)
 	return (res);
 }
 
-int			get_byte(t_proc *ps, int req_idx)
+long			get_byte(t_proc *ps, int req_idx)
 {
 	long	res;
 	char	*bytes;
