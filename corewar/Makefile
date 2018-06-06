@@ -6,7 +6,7 @@
 #    By: mmoros <mmoros@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/21 19:18:37 by ltanenba          #+#    #+#              #
-#    Updated: 2018/06/03 17:46:44 by ckrommen         ###   ########.fr        #
+#    Updated: 2018/06/06 14:41:13 by jgelbard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		= corewar
 
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra
-INC_FLAGS	= -I libft_leo/includes -I includes
+INC_FLAGS	= -Ilibft_leo/includes -Iincludes
 
 # -g for lldb
 DEBUG		= #-g
@@ -86,6 +86,7 @@ $(NAME): $(LIB_LEO) $(SRC) $(INCLUDES)
 	@$(CC) $(DEBUG) $(CFLAGS) $(INC_FLAGS) -o $(NAME) $(SRC) $(LIBS)
 
 $(LIB_LEO):
+	git submodule update --init
 	@make -C libft_leo
 
 clean:

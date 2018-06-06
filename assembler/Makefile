@@ -6,7 +6,7 @@
 #    By: jgelbard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/31 14:41:52 by jgelbard          #+#    #+#              #
-#    Updated: 2018/06/04 16:41:47 by jgelbard         ###   ########.fr        #
+#    Updated: 2018/06/06 15:43:15 by jgelbard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ SRC = $(NAME).c \
 	  util.c \
 
 SOURCE_DIRS = src ../corewar/src
-INCLUDE_DIRS = includes ../corewar/includes libft/includes
-LIB_DIRS = libft
+INCLUDE_DIRS = includes ../corewar/includes libft_leo/includes
+LIB_DIRS = libft_leo
 LDLIBS = -lft
 
 CFLAGS = -Wall -Wextra -Werror
@@ -42,13 +42,16 @@ vpath %.a $(LIB_DIRS)
 
 # --------------------------------------------------------------------------- #
 
-all: $(LIB_DIRS) $(NAME)
+all: prep $(LIB_DIRS) $(NAME)
+
+prep:
+	mkdir -p $(BUILD_DIR)
+	git submodule update --init
 
 $(NAME): $(OBJ)
 	$(LINK.c) -o $@ $(LDLIBS) $^
 
 $(OBJ): $(BUILD_DIR)/%.o: %.c
-	mkdir -p $(BUILD_DIR)
 	$(COMPILE.c) $(OUTPUT_OPTION) -c $< -o $@
 
 $(LIB_DIRS):
@@ -62,7 +65,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re prep
 .PHONY: $(LIB_DIRS)
 
 # --------------------------------------------------------------------------- #
