@@ -6,7 +6,7 @@
 /*   By: ltanenba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/16 23:48:14 by ltanenba          #+#    #+#             */
-/*   Updated: 2018/05/27 14:48:14 by jgelbard         ###   ########.fr       */
+/*   Updated: 2018/06/06 11:58:24 by jgelbard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct		s_proc
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <limits.h>
 
 # define MAX_OPCODE 16
 # define PROCESS_CURRENT_OP(ps) (g_op_tab + ((int)(g_arena[ps->pc]) - 1))
