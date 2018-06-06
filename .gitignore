@@ -7,3 +7,5 @@
 *.cor
 *.nfs*
 *.d
+*.h~
+a.out
